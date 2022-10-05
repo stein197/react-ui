@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"outDir": ".",
+		"target": "ESNext",
+		"jsx": "react-jsx",
+		"strict": true,
+		"baseUrl": "src",
+		"rootDir": "src",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"allowUnusedLabels": false,
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"importsNotUsedAsValues": "error"
+	},
+	"include": [
+		"**/*.ts",
+		"**/*.tsx"
+	]
+}
