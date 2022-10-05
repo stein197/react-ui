@@ -41,7 +41,7 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 			<div className={this.className} onPointerEnter={this.onPointerEnter} onPointerLeave={this.onPointerLeave}>
 				<input className="dropdown-input" type="text" placeholder={this.props.placeholder} value={this.state.value} onFocus={this.onFocus} onBlur={this.onBlur} onInput={this.onInput} />
 				<div className="dropdown-list" style={this.listStyle}>
-					{this.props.data.map(item => (
+					{this.props.children.map(item => (
 						<div key={item} className="dropdown-item" onClick={this.onItemClick} data-value={item} dangerouslySetInnerHTML={{__html: "" /* TODO */}} />
 					))}
 				</div>
@@ -100,7 +100,7 @@ type Props = {
 	/**
 	 * List of items for dropdown to show.
 	 */
-	data: string[];
+	children: string[];
 
 	/**
 	 * Text to be shown as a placeholder for the input.
