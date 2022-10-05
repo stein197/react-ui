@@ -24,7 +24,9 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 	public constructor(props: Props) {
 		super(props);
 		this.state = {
-			listVisible: false
+			listVisible: false,
+			value: this.props.defaultValue ?? "",
+			pointerInside: true
 		};
 		this.onPointerEnter = this.onPointerEnter.bind(this);
 		this.onPointerLeave = this.onPointerLeave.bind(this);
@@ -37,7 +39,7 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 	public render(): React.ReactNode {
 		return (
 			<div className={this.className} onPointerEnter={this.onPointerEnter} onPointerLeave={this.onPointerLeave}>
-				<input className="dropdown-input" type="text" placeholder={this.props.placeholder} value={this.props.defaultValue} onFocus={this.onFocus} onBlur={this.onBlur} onInput={this.onInput} />
+				<input className="dropdown-input" type="text" placeholder={this.props.placeholder} value={this.state.value} onFocus={this.onFocus} onBlur={this.onBlur} onInput={this.onInput} />
 				<div className="dropdown-list" style={this.listStyle}>
 					{this.props.data.map(item => (
 						<div key={item} className="dropdown-item" onClick={this.onItemClick} data-value={item} dangerouslySetInnerHTML={{__html: "" /* TODO */}} />
@@ -47,23 +49,50 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 		);
 	}
 
-	// TODO
-	private onPointerEnter(e: React.SyntheticEvent<HTMLDivElement, PointerEvent>): void {}
+	private onPointerEnter(e: React.SyntheticEvent<HTMLDivElement, PointerEvent>): void {
+		this.setState({
+			pointerInside: true
+		});
+	}
+
+	private onPointerLeave(e: React.SyntheticEvent<HTMLDivElement, PointerEvent>): void {
+		this.setState({
+			pointerInside: false
+		});
+	}
+
+	private onFocus(e: React.SyntheticEvent<HTMLInputElement, FocusEvent>): void {
+		this.setState({
+			listVisible: true
+		});
+	}
 
 	// TODO
-	private onPointerLeave(e: React.SyntheticEvent<HTMLDivElement, PointerEvent>): void {}
+	private onBlur(e: React.SyntheticEvent<HTMLInputElement, FocusEvent>): void {
+		if (!this.state.pointerInside)
+			this.setState({
+				listVisible: false
+			});
+	}
 
 	// TODO
-	private onFocus(e: React.SyntheticEvent<HTMLInputElement, FocusEvent>): void {}
+	private onInput(e: React.SyntheticEvent<HTMLInputElement, InputEvent>): void {
+		const target = e.target as HTMLInputElement;
+		const lcValue = target.value.toLowerCase();
+		this.setState({
+			value: target.value
+		});
+	}
 
 	// TODO
-	private onBlur(e: React.SyntheticEvent<HTMLInputElement, FocusEvent>): void {}
-
-	// TODO
-	private onInput(e: React.SyntheticEvent<HTMLInputElement, InputEvent>): void {}
-
-	// TODO
-	private onItemClick(e: React.SyntheticEvent<HTMLDivElement, MouseEvent>): void {}
+	private onItemClick(e: React.SyntheticEvent<HTMLDivElement, MouseEvent>): void {
+		const target = e.target as HTMLDivElement;
+		const value = target.getAttribute("data-value")!;
+		this.setState({
+			listVisible: false,
+			value
+		});
+	}
 }
 
 type Props = {
@@ -92,5 +121,9 @@ type Props = {
 }
 
 type State = {
+	value: string;
 	listVisible: boolean;
+	pointerInside: boolean;
 }
+
+// TODO: Replace an item searcing in array with searching in trie
