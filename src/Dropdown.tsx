@@ -2,11 +2,11 @@
 import React from "react";
 
 /**
- * Throws an error if {@link Props.defaultValue} is not contained in {@link Props.children}.
+ * Throws an error if {@link Props.defaultValue} is not contained in {@link Props.data}.
  */
 export default class Dropdown extends React.PureComponent<Props, State> {
 
-	private static defaultProps: Partial<Props> = {
+	public static defaultProps: Partial<Props> = {
 		editable: true
 	};
 
@@ -33,11 +33,11 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 
 	public constructor(props: Props) {
 		super(props);
-		if (props.defaultValue && !props.children.includes(props.defaultValue))
+		if (props.defaultValue && !props.data.includes(props.defaultValue))
 			throw new Error(`The value "${props.defaultValue}" of props.defaultValue does not match any of the entries in props.children array`);
 		this.state = {
 			value: props.defaultValue ?? "",
-			items: props.children,
+			items: props.data,
 			state: "collapsed",
 			pointerInside: false
 		};
@@ -86,7 +86,7 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 	private onInput = (e: React.SyntheticEvent<HTMLInputElement, InputEvent>): void => {
 		const target = e.target as HTMLInputElement;
 		const words = Dropdown.splitToWords(target.value);
-		const items = this.props.editable ? this.props.children.filter(item => words.some(w => item.toLowerCase().includes(w))) : this.props.children;
+		const items = this.props.editable ? this.props.data.filter(item => words.some(w => item.toLowerCase().includes(w))) : this.props.data;
 		this.setState({
 			value: target.value,
 			items
@@ -97,7 +97,7 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 	private onItemClick = (e: React.SyntheticEvent<HTMLLIElement, MouseEvent>): void => {
 		const target = e.target as HTMLDivElement;
 		const value = target.getAttribute("data-value")!;
-		const items = this.props.editable ? [value] : this.props.children;
+		const items = this.props.editable ? [value] : this.props.data;
 		this.setState({
 			state: "collapsed",
 			value,
@@ -122,7 +122,7 @@ type Props = {
 	/**
 	 * List of items for dropdown to show.
 	 */
-	children: string[];
+	data: string[];
 
 	/**
 	 * `true` if an input need to be editable.
@@ -135,7 +135,7 @@ type Props = {
 	placeholder?: string;
 
 	/**
-	 * Default value. Should be one of the values included in {@link Props.children}.
+	 * Default value. Should be one of the values included in {@link Props.data}.
 	 */
 	defaultValue?: string;
 
@@ -147,7 +147,7 @@ type Props = {
 	/**
 	 * Fires each time input changes it's value.
 	 * @param value Current input's value.
-	 * @param valid `true` if the value matches at least one item in the {@link Props.children}.
+	 * @param valid `true` if the value matches at least one item in the {@link Props.data}.
 	 */
 	onChange?(value: string, valid: boolean): void;
 }
