@@ -4,8 +4,8 @@
 		"target": "ESNext",
 		"jsx": "react-jsx",
 		"strict": true,
-		"baseUrl": "src",
 		"rootDir": "src",
+		"declaration": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"allowUnusedLabels": false,
@@ -14,6 +14,7 @@
 		"resolveJsonModule": true,
 		"importsNotUsedAsValues": "error"
 	},
+	"exclude": [],
 	"include": [
 		"**/*.ts",
 		"**/*.tsx"
