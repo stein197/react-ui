@@ -46,7 +46,7 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 				{this.state.state === "expanded" && (
 					<ul style={Dropdown.LIST_STYLE}>
 						{this.state.items.map(item => (
-							<li key={item} onClick={this.onItemClick} data-value={item} dangerouslySetInnerHTML={{__html: Dropdown.highlight(this.state.value, item)}} />
+							<li key={item} className={this.state.value === item ? "active" : ""} onClick={this.onItemClick} data-value={item} dangerouslySetInnerHTML={{__html: Dropdown.highlight(this.state.value, item)}} />
 						))}
 					</ul>
 				)}
