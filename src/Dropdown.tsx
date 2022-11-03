@@ -6,6 +6,10 @@ import React from "react";
  */
 export default class Dropdown extends React.PureComponent<Props, State> {
 
+	private static defaultProps: Partial<Props> = {
+		editable: true
+	};
+
 	private static readonly STYLE: React.CSSProperties = {
 		position: "relative"
 	};
@@ -42,7 +46,7 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 	public render(): React.ReactNode {
 		return (
 			<div className={this.className} style={Dropdown.STYLE} onPointerEnter={this.onPointerEnter} onPointerLeave={this.onPointerLeave}>
-				<input type="text" placeholder={this.props.placeholder} value={this.state.value} onFocus={this.onFocus} onBlur={this.onBlur} onInput={this.onInput} />
+				<input type="text" autoComplete="off" readOnly={!this.props.editable} placeholder={this.props.placeholder} value={this.state.value} onFocus={this.onFocus} onBlur={this.onBlur} onInput={this.onInput} />
 				{this.state.state === "expanded" && (
 					<ul style={Dropdown.LIST_STYLE}>
 						{this.state.items.map(item => (
@@ -82,7 +86,7 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 	private onInput = (e: React.SyntheticEvent<HTMLInputElement, InputEvent>): void => {
 		const target = e.target as HTMLInputElement;
 		const words = Dropdown.splitToWords(target.value);
-		const items = this.props.children.filter(item => words.some(w => item.toLowerCase().includes(w)));
+		const items = this.props.editable ? this.props.children.filter(item => words.some(w => item.toLowerCase().includes(w))) : this.props.children;
 		this.setState({
 			value: target.value,
 			items
@@ -93,12 +97,11 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 	private onItemClick = (e: React.SyntheticEvent<HTMLLIElement, MouseEvent>): void => {
 		const target = e.target as HTMLDivElement;
 		const value = target.getAttribute("data-value")!;
+		const items = this.props.editable ? [value] : this.props.children;
 		this.setState({
 			state: "collapsed",
 			value,
-			items: [
-				value
-			]
+			items
 		});
 		this.props.onChange?.(value, true);
 	}
@@ -120,6 +123,11 @@ type Props = {
 	 * List of items for dropdown to show.
 	 */
 	children: string[];
+
+	/**
+	 * `true` if an input need to be editable.
+	 */
+	editable?: boolean;
 
 	/**
 	 * Text to be shown as a placeholder for the input.
