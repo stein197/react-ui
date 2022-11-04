@@ -1,4 +1,5 @@
 // TODO: Replace an item searcing in array with searching in trie
+// TODO: Fix behavior for touch devic
 import React from "react";
 import KeyboardCode from "@stein197/util/KeyboardCode";
 
