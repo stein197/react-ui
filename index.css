@@ -7,6 +7,10 @@
 	width: 100%;
 }
 
+.dropdown input:read-only {
+	cursor: pointer;
+}
+
 .dropdown ul {
 	position: absolute;
 	left: 0;
