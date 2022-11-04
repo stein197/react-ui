@@ -1,8 +1,8 @@
-// TODO: Replace an item searcing in array with searching in trie
 import React from "react";
 import KeyboardCode from "@stein197/util/KeyboardCode";
 
 /**
+ * Simple dropdown component. Works the same as plain <select /> element except that this dropdown can be stylized.
  * Throws an error if {@link Props.defaultValue} is not contained in {@link Props.data}.
  */
 export default class Dropdown extends React.PureComponent<Props, State> {
@@ -110,14 +110,14 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 			state: "expanded",
 			items,
 		});
-		this.props.onChange?.(target.value, !!items.length);
+		this.props.onChange?.(target.value, items.length ? items.length === 1 && items[0] === target.value ? "valid" : "match" : "invalid");
 	}
 
 	private onItemPointerUp = (e: React.SyntheticEvent<HTMLLIElement, MouseEvent>): void => {
 		const target = e.target as HTMLDivElement;
 		const value = target.getAttribute("data-value")!;
 		this.setValueState(value);
-		this.props.onChange?.(value, true);
+		this.props.onChange?.(value, "valid");
 	}
 
 	// TODO: Add scroll to focused items
@@ -237,9 +237,12 @@ type Props = {
 	/**
 	 * Fires each time input changes it's value.
 	 * @param value Current input's value.
-	 * @param valid `true` if the value matches at least one item in the {@link Props.data}.
+	 * @param state Denotes the state of the input's value. Could be one of three values:
+	 *              - "valid". The value is one of the entries in the list
+	 *              - "invalid". The value does not match any item in the list
+	 *              - "match". The value matches one or more items in the list
 	 */
-	onChange?(value: string, valid: boolean): void;
+	onChange?(value: string, state: "valid" | "invalid" | "match"): void;
 }
 
 type State = {
