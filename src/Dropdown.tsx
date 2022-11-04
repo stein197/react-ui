@@ -1,6 +1,6 @@
 // TODO: Replace an item searcing in array with searching in trie
 import React from "react";
-import {KeyboardCode} from "@stein197/ts-util"; // TODO: Replace it with compiled js enums
+import KeyboardCode from "@stein197/util/KeyboardCode";
 
 /**
  * Throws an error if {@link Props.defaultValue} is not contained in {@link Props.data}.

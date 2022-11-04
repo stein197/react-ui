@@ -1,5 +1,5 @@
 import React from "react";
-import {PromiseState} from "@stein197/ts-util";
+import PromiseState from "@stein197/util/PromiseState";
 
 /**
  * Renders its children only when the promise is resolved.

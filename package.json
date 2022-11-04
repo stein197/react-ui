@@ -35,6 +35,6 @@
     "typescript": "4.8.4"
   },
   "dependencies": {
-    "@stein197/ts-util": "1.7.0"
+    "@stein197/util": "1.0.1"
   }
 }
