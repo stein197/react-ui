@@ -1,5 +1,4 @@
 // TODO: Replace an item searcing in array with searching in trie
-// TODO: Fix behavior for touch devic
 import React from "react";
 import KeyboardCode from "@stein197/util/KeyboardCode";
 
@@ -48,6 +47,7 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 			liElement.scrollIntoView(this.state.index < prevState.index);
 	}
 
+	// TODO: Remove dirty hack with onPointerEnter and onPointerLeave
 	public render(): React.ReactNode {
 		return (
 			<div ref={this.ref} className={this.className} onPointerEnter={this.onPointerEnter} onPointerLeave={this.onPointerLeave}>
@@ -55,7 +55,7 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 				{this.state.state === "expanded" && (
 					<ul>
 						{this.state.items.map((item, i) => (
-							<li key={item} className={this.getListItemClassName(item, i)} onClick={this.onItemClick} onPointerEnter={this.onPointerEnterItem} data-value={item} data-index={i} dangerouslySetInnerHTML={{__html: Dropdown.highlight(this.state.value, item)}} />
+							<li key={item} className={this.getListItemClassName(item, i)} onPointerUp={this.onItemPointerUp} onPointerEnter={this.onPointerEnterItem} data-value={item} data-index={i} dangerouslySetInnerHTML={{__html: Dropdown.highlight(this.state.value, item)}} />
 						))}
 					</ul>
 				)}
@@ -113,7 +113,7 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 		this.props.onChange?.(target.value, !!items.length);
 	}
 
-	private onItemClick = (e: React.SyntheticEvent<HTMLLIElement, MouseEvent>): void => {
+	private onItemPointerUp = (e: React.SyntheticEvent<HTMLLIElement, MouseEvent>): void => {
 		const target = e.target as HTMLDivElement;
 		const value = target.getAttribute("data-value")!;
 		this.setValueState(value);
