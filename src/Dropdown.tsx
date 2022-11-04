@@ -107,7 +107,8 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 		const items = this.props.editable ? this.props.data.filter(item => words.every(w => item.toLowerCase().includes(w))) : this.props.data;
 		this.setState({
 			value: target.value,
-			items
+			state: "expanded",
+			items,
 		});
 		this.props.onChange?.(target.value, !!items.length);
 	}
