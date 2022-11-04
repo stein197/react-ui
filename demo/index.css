@@ -26,6 +26,10 @@
 	font-weight: bold;
 }
 
+.dropdown li.focused {
+	background-color: lightblue;
+}
+
 .dropdown li:not(:first-child) {
 	border-top: 1px solid gray;
 }

@@ -1,5 +1,6 @@
 // TODO: Replace an item searcing in array with searching in trie
 import React from "react";
+import {KeyboardCode} from "@stein197/ts-util"; // TODO: Replace it with compiled js enums
 
 /**
  * Throws an error if {@link Props.defaultValue} is not contained in {@link Props.data}.
@@ -19,6 +20,8 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 		return className.join(" ");
 	}
 
+	private readonly ref: React.RefObject<HTMLDivElement> = React.createRef<HTMLDivElement>();
+
 	public constructor(props: Props) {
 		super(props);
 		if (props.defaultValue && !props.data.includes(props.defaultValue))
@@ -27,23 +30,52 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 			value: props.defaultValue ?? "",
 			items: props.data,
 			state: "collapsed",
-			pointerInside: false
+			index: -1,
+			pointerInside: false,
 		};
+	}
+
+	// TODO: Replace with Intersection Observer API (https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) since it's more optimized for this kind of tasks
+	public override componentDidUpdate(prevProps, prevState: Readonly<State>): void {
+		if (this.state.index === prevState.index || this.state.state === "collapsed")
+			return;
+		const liElement = this.ref.current!.querySelector<HTMLLIElement>(`[data-index="${this.state.index}"]`)!;
+		const ulRect = this.ref.current!.querySelector("ul")!.getBoundingClientRect();
+		const liRect = liElement.getBoundingClientRect();
+		const shouldScroll = liRect.top < ulRect.top || ulRect.bottom < liRect.top || liRect.bottom < ulRect.top || ulRect.bottom < liRect.bottom;
+		if (!shouldScroll)
+			return;
+		liElement.scrollIntoView(this.state.index < prevState.index);
 	}
 
 	public render(): React.ReactNode {
 		return (
-			<div className={this.className} onPointerEnter={this.onPointerEnter} onPointerLeave={this.onPointerLeave}>
-				<input name={this.props.name} type="text" autoComplete="off" readOnly={!this.props.editable} placeholder={this.props.placeholder} value={this.state.value} onFocus={this.onFocus} onBlur={this.onBlur} onInput={this.onInput} />
+			<div ref={this.ref} className={this.className} onPointerEnter={this.onPointerEnter} onPointerLeave={this.onPointerLeave}>
+				<input name={this.props.name} type="text" autoComplete="off" readOnly={!this.props.editable} placeholder={this.props.placeholder} value={this.state.value} onFocus={this.onFocus} onBlur={this.onBlur} onInput={this.onInput} onKeyDown={this.onKeyDown} />
 				{this.state.state === "expanded" && (
 					<ul>
-						{this.state.items.map(item => (
-							<li key={item} className={this.state.value === item ? "active" : ""} onClick={this.onItemClick} data-value={item} dangerouslySetInnerHTML={{__html: Dropdown.highlight(this.state.value, item)}} />
+						{this.state.items.map((item, i) => (
+							<li key={item} className={this.getListItemClassName(item, i)} onClick={this.onItemClick} onPointerEnter={this.onPointerEnterItem} data-value={item} data-index={i} dangerouslySetInnerHTML={{__html: Dropdown.highlight(this.state.value, item)}} />
 						))}
 					</ul>
 				)}
 			</div>
 		);
+	}
+
+	private getListItemClassName(item: string, index: number): string {
+		const className: string[] = [];
+		if (this.state.value === item)
+			className.push("active");
+		if (this.state.index === index)
+			className.push("focused");
+		return className.join(" ");
+	}
+
+	private onPointerEnterItem = (e: React.SyntheticEvent<HTMLLIElement, PointerEvent>): void => {
+		this.setState({
+			index: +(e.target as HTMLLIElement).getAttribute("data-index")!
+		});
 	}
 
 	private onPointerEnter = (): void => {
@@ -66,9 +98,7 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 
 	private onBlur = (): void => {
 		if (!this.state.pointerInside)
-			this.setState({
-				state: "collapsed"
-			});
+			this.setCollapsedState();
 	}
 
 	private onInput = (e: React.SyntheticEvent<HTMLInputElement, InputEvent>): void => {
@@ -85,13 +115,78 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 	private onItemClick = (e: React.SyntheticEvent<HTMLLIElement, MouseEvent>): void => {
 		const target = e.target as HTMLDivElement;
 		const value = target.getAttribute("data-value")!;
+		this.setValueState(value);
+		this.props.onChange?.(value, true);
+	}
+
+	// TODO: Add scroll to focused items
+	private onKeyDown = (e: React.SyntheticEvent<HTMLInputElement, KeyboardEvent>): void => {
+		e.preventDefault();
+		switch (e.nativeEvent.code) {
+			case KeyboardCode.Esc: {
+				this.setCollapsedState();
+				break;
+			}
+			case KeyboardCode.Enter: {
+				if (this.state.index < 0)
+					this.setCollapsedState();
+				else
+					this.setValueState(this.state.items[this.state.index]);
+				break;
+			}
+			case KeyboardCode.Up: {
+				if (this.state.index < 0)
+					return this.setState({
+						index: 0
+					});
+				const isFirst = this.state.index === 0;
+				if (isFirst)
+					this.setState({
+						index: this.state.items.length - 1
+					});
+				else
+					this.setState({
+						index: this.state.index - 1
+					});
+				break;
+			}
+			case KeyboardCode.Down: {
+				if (this.state.index < 0)
+					return this.setState({
+						index: 0
+					});
+				const isLast = this.state.index + 1 === this.state.items.length;
+				if (isLast)
+					this.setState({
+						index: 0
+					});
+				else
+					this.setState({
+						index: this.state.index + 1
+					});
+				break;
+			}
+			default: {
+				return;
+			}
+		}
+	}
+
+	private setValueState(value: string): void {
 		const items = this.props.editable ? [value] : this.props.data;
 		this.setState({
-			state: "collapsed",
 			value,
-			items
-		});
-		this.props.onChange?.(value, true);
+			items,
+			index: -1,
+			state: "collapsed"
+		})
+	}
+
+	private setCollapsedState(): void {
+		this.setState({
+			state: "collapsed",
+			index: -1
+		})
 	}
 
 	private static highlight(input: string, string: string): string {
@@ -118,7 +213,7 @@ type Props = {
 	name?: string;
 
 	/**
-	 * `true` if an input need to be editable.
+	 * `true` if an input need to be editable. `true` by default.
 	 */
 	editable?: boolean;
 
@@ -149,5 +244,6 @@ type State = {
 	value: string;
 	items: string[];
 	state: "expanded" | "collapsed";
+	index: number;
 	pointerInside: boolean;
 }
