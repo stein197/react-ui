@@ -121,7 +121,8 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 
 	// TODO: Add scroll to focused items
 	private onKeyDown = (e: React.SyntheticEvent<HTMLInputElement, KeyboardEvent>): void => {
-		e.preventDefault();
+		if (e.nativeEvent.code === KeyboardCode.Up || e.nativeEvent.code === KeyboardCode.Down)
+			e.preventDefault();
 		switch (e.nativeEvent.code) {
 			case KeyboardCode.Esc: {
 				this.setCollapsedState();
