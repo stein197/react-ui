@@ -4,9 +4,9 @@
   "description": "Set of common UI components for React",
   "main": "index.js",
   "scripts": {
-    "clean": "del .\\*.js .\\*.d.ts .\\*.map",
+    "clean": "del .\\*.js .\\*.d.ts .\\*.map .\\demo\\*.js 2>nul",
     "build": "tsc",
-    "build:test": "microbundle --tsconfig tsconfig.dev.json -i index.test.tsx -o index.test.js -f iife --no-generateTypes --no-pkg-main --define process.env.NODE_ENV=development -w"
+    "demo": "microbundle --tsconfig tsconfig.dev.json -i demo/index.tsx -o demo/index.js -f iife --no-generateTypes --no-pkg-main --define process.env.NODE_ENV=development -w"
   },
   "repository": {
     "type": "git",

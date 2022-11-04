@@ -1,0 +1,31 @@
+*,
+*::before,
+*::after {
+	position: relative;
+	box-sizing: border-box;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.dropdown input {
+	padding: 5px;
+}
+
+.dropdown ul {
+	border: 1px solid gray;
+}
+
+.dropdown li {
+	padding: 5px;
+}
+
+.dropdown li:hover {
+	background-color: lightblue;
+}
+
+.dropdown li.active {
+	font-weight: bold;
+}
+
+.dropdown li:not(:first-child) {
+	border-top: 1px solid gray;
+}
