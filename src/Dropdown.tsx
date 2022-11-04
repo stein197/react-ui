@@ -10,18 +10,6 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 		editable: true
 	};
 
-	private static readonly STYLE: React.CSSProperties = {
-		position: "relative"
-	};
-
-	private static readonly LIST_STYLE: React.CSSProperties = {
-		position: "absolute",
-		left: "0",
-		top: "100%",
-		width: "100%",
-		listStyle: "none"
-	};
-
 	private get className(): string {
 		const className = [
 			"dropdown", this.state.state
@@ -45,10 +33,10 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 
 	public render(): React.ReactNode {
 		return (
-			<div className={this.className} style={Dropdown.STYLE} onPointerEnter={this.onPointerEnter} onPointerLeave={this.onPointerLeave}>
+			<div className={this.className} onPointerEnter={this.onPointerEnter} onPointerLeave={this.onPointerLeave}>
 				<input name={this.props.name} type="text" autoComplete="off" readOnly={!this.props.editable} placeholder={this.props.placeholder} value={this.state.value} onFocus={this.onFocus} onBlur={this.onBlur} onInput={this.onInput} />
 				{this.state.state === "expanded" && (
-					<ul style={Dropdown.LIST_STYLE}>
+					<ul>
 						{this.state.items.map(item => (
 							<li key={item} className={this.state.value === item ? "active" : ""} onClick={this.onItemClick} data-value={item} dangerouslySetInnerHTML={{__html: Dropdown.highlight(this.state.value, item)}} />
 						))}
@@ -86,7 +74,7 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 	private onInput = (e: React.SyntheticEvent<HTMLInputElement, InputEvent>): void => {
 		const target = e.target as HTMLInputElement;
 		const words = Dropdown.splitToWords(target.value);
-		const items = this.props.editable ? this.props.data.filter(item => words.some(w => item.toLowerCase().includes(w))) : this.props.data;
+		const items = this.props.editable ? this.props.data.filter(item => words.every(w => item.toLowerCase().includes(w))) : this.props.data;
 		this.setState({
 			value: target.value,
 			items
