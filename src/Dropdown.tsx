@@ -18,7 +18,8 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 
 	public static defaultProps: Partial<Props> = {
 		editable: true,
-		enabled: true
+		enabled: true,
+		required: false
 	};
 
 	private get className(): string {
@@ -61,7 +62,7 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 	public render(): React.ReactNode {
 		return (
 			<div ref={this.ref} className={this.className} onPointerEnter={this.onPointerEnter} onPointerLeave={this.onPointerLeave}>
-				<input name={this.props.name} type="text" autoComplete="off" disabled={!this.props.enabled} readOnly={!this.props.editable} placeholder={this.props.placeholder} value={this.state.value} onFocus={this.onFocus} onBlur={this.onBlur} onInput={this.onInput} onKeyDown={this.onKeyDown} />
+				<input name={this.props.name} type="text" autoComplete="off" disabled={!this.props.enabled} readOnly={!this.props.editable} required={this.props.required} placeholder={this.props.placeholder} value={this.state.value} onFocus={this.onFocus} onBlur={this.onBlur} onInput={this.onInput} onKeyDown={this.onKeyDown} />
 				{this.state.state === "expanded" && (
 					<ul>
 						{this.state.items.map((item, i) => (
@@ -228,6 +229,11 @@ type Props = {
 	 * `false` for dropdown to be disabled. `true` by default.
 	 */
 	enabled?: boolean;
+
+	/**
+	 * `true` for dropdown to be required. `false` by default.
+	 */
+	required?: boolean;
 
 	/**
 	 * `true` if an input need to be editable. `true` by default.
