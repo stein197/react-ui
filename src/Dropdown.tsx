@@ -44,9 +44,8 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 		const ulRect = this.ref.current!.querySelector("ul")!.getBoundingClientRect();
 		const liRect = liElement.getBoundingClientRect();
 		const shouldScroll = liRect.top < ulRect.top || ulRect.bottom < liRect.top || liRect.bottom < ulRect.top || ulRect.bottom < liRect.bottom;
-		if (!shouldScroll)
-			return;
-		liElement.scrollIntoView(this.state.index < prevState.index);
+		if (shouldScroll)
+			liElement.scrollIntoView(this.state.index < prevState.index);
 	}
 
 	public render(): React.ReactNode {
