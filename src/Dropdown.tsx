@@ -2,8 +2,17 @@ import React from "react";
 import KeyboardCode from "@stein197/util/KeyboardCode";
 
 /**
- * Simple dropdown component. Works the same as plain <select /> element except that this dropdown can be stylized.
+ * Simple dropdown component. Works the same as plain `<select />` element except that this dropdown can be stylized.
  * Throws an error if {@link Props.defaultValue} is not contained in {@link Props.data}.
+ * @example
+ * ```tsx
+ * const data = [
+ * 	"First",
+ * 	"Second",
+ * 	"Third"
+ * ];
+ * <Dropdown defaultValue="First" placeholder="Select a place" data={data} onChange={console.log} editable={false} />
+ * ```
  */
 export default class Dropdown extends React.PureComponent<Props, State> {
 
