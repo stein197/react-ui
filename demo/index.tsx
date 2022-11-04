@@ -205,13 +205,17 @@ document.addEventListener("DOMContentLoaded", () => {
 	const root = ReactDOM.createRoot(rootElement);
 	root.render(
 		<div style={{display: "flex"}}>
-			<div style={{flexBasis: "50%", flexShrink: 0, flexGrow: 0}}>
+			<div style={{flexGrow: 1}}>
 				<p>editable: true</p>
-				<Dropdown data={list} />
+				<Dropdown data={list} onChange={(value, state) => console.log(`value: ${value}; state: ${state}`)} />
 			</div>
-			<div style={{flexBasis: "50%", flexShrink: 0, flexGrow: 0}}>
+			<div style={{flexGrow: 1}}>
 				<p>editable: false</p>
-				<Dropdown data={list} editable={false} />
+				<Dropdown data={list} editable={false} onChange={(value, state) => console.log(`value: ${value}; state: ${state}`)} />
+			</div>
+			<div style={{flexGrow: 1}}>
+				<p>enabled: false</p>
+				<Dropdown enabled={false} data={list} editable={false} onChange={(value, state) => console.log(`value: ${value}; state: ${state}`)} />
 			</div>
 		</div>
 	);

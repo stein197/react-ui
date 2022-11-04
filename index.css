@@ -7,7 +7,7 @@
 	width: 100%;
 }
 
-.dropdown input:read-only {
+.dropdown input:read-only:not(:disabled) {
 	cursor: pointer;
 }
 
