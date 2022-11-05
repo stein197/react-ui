@@ -121,14 +121,22 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 			state: "expanded",
 			items,
 		});
-		this.props.onChange?.(target.value, items.length ? items.length === 1 && items[0] === target.value ? "valid" : "match" : "invalid");
+		let valueState: Parameters<Exclude<Props["onChange"], undefined>>[1];
+		if (!target.value)
+			valueState = "empty";
+		else if (!items.length)
+			valueState = "invalid";
+		else if (items.length === 1 && items[0] === target.value)
+			valueState = "valid";
+		else
+			valueState = "match";
+		this.props.onChange?.(target.value, valueState);
 	}
 
 	private onItemPointerUp = (e: React.SyntheticEvent<HTMLLIElement, MouseEvent>): void => {
 		const target = e.target as HTMLDivElement;
 		const value = target.getAttribute("data-value")!;
 		this.setValueState(value);
-		this.props.onChange?.(value, "valid");
 	}
 
 	// TODO: Add scroll to focused items
@@ -192,7 +200,8 @@ export default class Dropdown extends React.PureComponent<Props, State> {
 			items,
 			index: -1,
 			state: "collapsed"
-		})
+		});
+		this.props.onChange?.(value, "valid");
 	}
 
 	private setCollapsedState(): void {
@@ -262,8 +271,9 @@ type Props = {
 	 *              - "valid". The value is one of the entries in the list
 	 *              - "invalid". The value does not match any item in the list
 	 *              - "match". The value matches one or more items in the list
+	 *              - "empty". The value is empty (matches all entries in the list)
 	 */
-	onChange?(value: string, state: "valid" | "invalid" | "match"): void;
+	onChange?(value: string, state: "valid" | "invalid" | "match" | "empty"): void;
 }
 
 type State = {
