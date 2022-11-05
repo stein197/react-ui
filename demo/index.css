@@ -27,12 +27,41 @@ input {
 }
 
 pre {
-	border: 1px solid gray;
-	background-color: ghostwhite;
 	padding: 20px;
 	border-radius: 20px;
 	font-family: monospace;
 	tab-size: 4;
+}
+
+p {
+	margin: 0;
+}
+
+button {
+	border: none;
+	outline: none;
+	padding: 10px;
+	width: 100%;
+	border-radius: 100px;
+	background-color: dodgerblue;
+	color: white;
+	line-height: 1;
+	cursor: pointer;
+	transform-origin: center;
+}
+
+button:disabled {
+	cursor: default;
+	filter: grayscale(1);
+}
+
+button:not(:disabled):hover {
+	filter: brightness(1.2);
+}
+
+button:not(:disabled):active {
+	filter: brightness(0.8);
+	transform: scale(.95);
 }
 
 .dropdown {
@@ -70,7 +99,7 @@ pre {
 
 .container {
 	padding: 0 10px;
-	max-width: 1200px;
+	max-width: 1000px;
 	margin: auto;
 }
 
@@ -94,4 +123,27 @@ pre {
 	width: 2rem;
 	height: 2rem;
 	cursor: pointer;
+}
+
+.card-white,
+.card-yellow,
+.card-red {
+	padding: 20px;
+	border-radius: 20px;
+	margin: 20px 0;
+}
+
+.card-white {
+	border: 1px solid gray;
+	background-color: ghostwhite;
+}
+
+.card-yellow {
+	border: 1px solid orange;
+	background-color: lightyellow;
+}
+
+.card-red {
+	border: 1px solid red;
+	background-color: salmon;
 }

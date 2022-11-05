@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Dropdown from "../src/Dropdown";
+import Async from "../src/Async";
 
 const list: string[] = [
 	"Afghanistan",
@@ -206,6 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	root.render(
 		<div className="container">
 			<DropdownDemo />
+			<AsyncDemo />
 		</div>
 	);
 });
@@ -271,9 +273,124 @@ function DropdownDemo(): JSX.Element {
 						</tr>
 					</tbody>
 				</table>
-				<pre>{JSON.stringify(eventValue, undefined, "\t")}</pre>
+				<pre className="card-white">{JSON.stringify(eventValue, undefined, "\t")}</pre>
 				<Dropdown data={list} name={name} enabled={enabled} required={required} editable={editable} placeholder={placeholder} defaultValue={defaultValue} className={className} onChange={onChange} />
 			</div>
 		</>
 	);
+}
+
+function AsyncDemo(): JSX.Element {
+	const [promiseTimeout, setPromiseTimeout] = React.useState<number>(1000);
+	const [shouldResolve, setShouldResolve] = React.useState<boolean>(true);
+	const [resolveValue, setResolveValue] = React.useState<string>("Resolved!");
+	const [rejectValue, setRejectValue] = React.useState<string>("Rejected!");
+	const [childrenValue, setChildrenValue] = React.useState<string>("Children");
+	const [fallbackValue, setFallbackValue] = React.useState<string>("Fallback");
+	const [stubValue, setStubValue] = React.useState<string>("This is a stub");
+
+	const [running, setRunning] = React.useState<boolean>(false);
+	const [promise, setPromise] = React.useState<Promise<string> | null>(null);
+
+	function reset(): void {
+		setRunning(false);
+		// setPromise(null);
+	}
+
+	function onClick(): void {
+		setPromise(null);
+		queueMicrotask(() => {
+			setRunning(true);
+			const p = timeout(promiseTimeout, resolveValue, rejectValue, shouldResolve);
+			p.then(reset, reset);
+			setPromise(p);
+		});
+	}
+
+	return (
+		<>
+			<p className="h1">Demo &lt;Async /&gt;</p>
+			<div className="card">
+				<table>
+					<tbody>
+						<tr>
+							<td>Promise timeout (ms, 1000 by default)</td>
+							<td>
+								<input disabled={running} type="number" value={promiseTimeout} onChange={e => setPromiseTimeout(+(e.target as HTMLInputElement).value)} />
+							</td>
+						</tr>
+						<tr>
+							<td>Should resolve</td>
+							<td>
+								<input disabled={running} type="checkbox" checked={shouldResolve} onChange={e => setShouldResolve(!shouldResolve)} />
+							</td>
+						</tr>
+						<tr>
+							<td>Resolve value</td>
+							<td>
+								<input disabled={running} type="text" value={resolveValue} onChange={e => setResolveValue((e.target as HTMLInputElement).value)} />
+							</td>
+						</tr>
+						<tr>
+							<td>Reject value</td>
+							<td>
+								<input disabled={running} type="text" value={rejectValue} onChange={e => setRejectValue((e.target as HTMLInputElement).value)} />
+							</td>
+						</tr>
+						<tr>
+							<td>Children value (leave empty to render resolved value instead)</td>
+							<td>
+								<input disabled={running} type="text" value={childrenValue} onChange={e => setChildrenValue((e.target as HTMLInputElement).value)} />
+							</td>
+						</tr>
+						<tr>
+							<td>Fallback value (leave empty to render rejected value instead)</td>
+							<td>
+								<input disabled={running} type="text" value={fallbackValue} onChange={e => setFallbackValue((e.target as HTMLInputElement).value)} />
+							</td>
+						</tr>
+						<tr>
+							<td>Stub value</td>
+							<td>
+								<input disabled={running} type="text" value={stubValue} onChange={e => setStubValue((e.target as HTMLInputElement).value)} />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<button onClick={onClick} disabled={running}>Run!</button>
+				{promise && (
+					<Async promise={promise} fallback={fallbackValue ? (
+						<div className="card-red">
+							<p>Fallback:</p>
+							{fallbackValue}
+						</div>
+					) : (v => (
+						<div className="card-red">
+							<p>Fallback:</p>
+							{v}
+						</div>
+					))} stub={
+						<div className="card-yellow">
+							<p>Stub:</p>
+							{stubValue}
+						</div>
+					}>{childrenValue ? (
+						<div className="card-white">
+							<p>Children:</p>
+							{childrenValue}
+						</div>
+					) : (v => (
+						<div className="card-white">
+							<p>Children:</p>
+							{v}
+						</div>
+					))}</Async>
+				)}
+			</div>
+		</>
+	);
+}
+
+function timeout<T, U>(ms: number, resolveValue: T, rejectValue: U, resolve: boolean): Promise<T> {
+	return new Promise<T>((rs, rj): void => void setTimeout((): void => resolve ? rs(resolveValue) : rj(rejectValue), ms));
 }
