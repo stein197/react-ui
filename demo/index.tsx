@@ -204,19 +204,76 @@ document.addEventListener("DOMContentLoaded", () => {
 	const rootElement = document.body.querySelector("main")!;
 	const root = ReactDOM.createRoot(rootElement);
 	root.render(
-		<div style={{display: "flex"}}>
-			<div style={{flexGrow: 1}}>
-				<p>editable: true</p>
-				<Dropdown data={list} onChange={(value, state) => console.log(`value: ${value}; state: ${state}`)} />
-			</div>
-			<div style={{flexGrow: 1}}>
-				<p>editable: false</p>
-				<Dropdown data={list} editable={false} onChange={(value, state) => console.log(`value: ${value}; state: ${state}`)} />
-			</div>
-			<div style={{flexGrow: 1}}>
-				<p>enabled: false</p>
-				<Dropdown enabled={false} data={list} editable={false} onChange={(value, state) => console.log(`value: ${value}; state: ${state}`)} />
-			</div>
+		<div className="container">
+			<DropdownDemo />
 		</div>
 	);
 });
+
+function DropdownDemo(): JSX.Element {
+	const [name, setName] = React.useState<string>("country");
+	const [enabled, setEnabled] = React.useState<boolean>(true);
+	const [required, setRequired] = React.useState<boolean>(false);
+	const [editable, setEditable] = React.useState<boolean>(true);
+	const [placeholder, setPlaceholder] = React.useState<string>("Select a country");
+	const [defaultValue, setDefaultValue] = React.useState<string>(list[0]);
+	const [className, setClassName] = React.useState<string>("dropdown-country");
+	const [eventValue, setEventValue] = React.useState<{value?: string; state?: string}>({});
+	const onChange = React.useCallback((value: string, state: string): void => setEventValue({value, state}), []);
+
+	return (
+		<>
+			<p className="h1">Demo &lt;Dropdown /&gt;</p>
+			<div className="card">
+				<table>
+					<tbody>
+						<tr>
+							<td>name</td>
+							<td>
+								<input type="text" value={name} onInput={e => setName((e.target as HTMLInputElement).value)} />
+							</td>
+						</tr>
+						<tr>
+							<td>enabled</td>
+							<td>
+								<input type="checkbox" checked={enabled} onChange={() => setEnabled(!enabled)} />
+							</td>
+						</tr>
+						<tr>
+							<td>required</td>
+							<td>
+								<input type="checkbox" checked={required} onChange={() => setRequired(!required)} />
+							</td>
+						</tr>
+						<tr>
+							<td>editable</td>
+							<td>
+								<input type="checkbox" checked={editable} onChange={() => setEditable(!editable)} />
+							</td>
+						</tr>
+						<tr>
+							<td>placeholder</td>
+							<td>
+								<input type="text" value={placeholder} onInput={e => setPlaceholder((e.target as HTMLInputElement).value)} />
+							</td>
+						</tr>
+						<tr>
+							<td>defaultValue</td>
+							<td>
+								<input type="text" value={defaultValue} onInput={e => setDefaultValue((e.target as HTMLInputElement).value)} />
+							</td>
+						</tr>
+						<tr>
+							<td>className</td>
+							<td>
+								<input type="text" value={className} onInput={e => setClassName((e.target as HTMLInputElement).value)} />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<pre>{JSON.stringify(eventValue, undefined, "\t")}</pre>
+				<Dropdown data={list} name={name} enabled={enabled} required={required} editable={editable} placeholder={placeholder} defaultValue={defaultValue} className={className} onChange={onChange} />
+			</div>
+		</>
+	);
+}
