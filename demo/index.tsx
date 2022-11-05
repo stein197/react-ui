@@ -206,6 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const root = ReactDOM.createRoot(rootElement);
 	root.render(
 		<div className="container">
+			<h1 className="text-center">Demos</h1>
 			<DropdownDemo />
 			<AsyncDemo />
 		</div>
@@ -225,7 +226,7 @@ function DropdownDemo(): JSX.Element {
 
 	return (
 		<>
-			<p className="h1">Demo &lt;Dropdown /&gt;</p>
+			<p className="h2 text-mono">&lt;Dropdown /&gt;</p>
 			<div className="card">
 				<table>
 					<tbody>
@@ -294,22 +295,18 @@ function AsyncDemo(): JSX.Element {
 
 	function reset(): void {
 		setRunning(false);
-		// setPromise(null);
 	}
 
 	function onClick(): void {
-		setPromise(null);
-		queueMicrotask(() => {
-			setRunning(true);
-			const p = timeout(promiseTimeout, resolveValue, rejectValue, shouldResolve);
-			p.then(reset, reset);
-			setPromise(p);
-		});
+		setRunning(true);
+		const p = timeout(promiseTimeout, resolveValue, rejectValue, shouldResolve);
+		p.then(reset, reset);
+		setPromise(p);
 	}
 
 	return (
 		<>
-			<p className="h1">Demo &lt;Async /&gt;</p>
+			<p className="h2 text-mono">&lt;Async /&gt;</p>
 			<div className="card">
 				<table>
 					<tbody>

@@ -64,6 +64,10 @@ button:not(:disabled):active {
 	transform: scale(.95);
 }
 
+.text-center {
+	text-align: center;
+}
+
 .dropdown {
 	z-index: 10;
 }
@@ -93,14 +97,25 @@ button:not(:disabled):active {
 	border-top: 1px solid gray;
 }
 
-.h1 {
+h1 {
+	font-size: 3rem;
+	font-weight: bold;
+}
+
+.h2 {
 	font-size: 2rem;
+	margin-top: 1rem;
+	margin-bottom: .5rem;
 }
 
 .container {
 	padding: 0 10px;
 	max-width: 1000px;
 	margin: auto;
+}
+
+.text-mono {
+	font-family: monospace;
 }
 
 .card {

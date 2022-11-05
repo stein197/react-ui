@@ -8,18 +8,15 @@ export default class Async<T, U = any> extends React.PureComponent<Props<T, U>, 
 
 	public constructor(props: Props<T, U>) {
 		super(props);
-		this.state = {
-			state: PromiseState.Pending
-		};
-		props.promise.then(result => this.setState({
-			result,
-			reason: undefined,
-			state: PromiseState.Fulfilled,
-		})).catch(reason => this.setState({
-			result: undefined,
-			reason,
-			state: PromiseState.Rejected
-		}));
+		this.state = this.getDefaultState();
+		this.initPromiseCallbacks();
+	}
+
+	public override componentDidUpdate(prevProps: Readonly<Props<T, U>>): void {
+		if (prevProps.promise === this.props.promise)
+			return;
+		this.setState(this.getDefaultState());
+		this.initPromiseCallbacks();
 	}
 
 	public override render(): React.ReactNode {
@@ -31,6 +28,26 @@ export default class Async<T, U = any> extends React.PureComponent<Props<T, U>, 
 			case PromiseState.Fulfilled:
 				return typeof this.props.children === "function" ? this.props.children(this.state.result!) : this.props.children;
 		}
+	}
+
+	private getDefaultState(): State<T, U> {
+		return {
+			state: PromiseState.Pending,
+			reason: undefined,
+			result: undefined
+		};
+	}
+
+	private initPromiseCallbacks(): void {
+		this.props.promise.then(result => this.setState({
+			result,
+			reason: undefined,
+			state: PromiseState.Fulfilled,
+		})).catch(reason => this.setState({
+			result: undefined,
+			reason,
+			state: PromiseState.Rejected
+		}));
 	}
 }
 
