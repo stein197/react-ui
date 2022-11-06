@@ -3,7 +3,8 @@ import KeyboardCode from "@stein197/util/KeyboardCode";
 
 /**
  * Simple dropdown component. Works the same as plain `<select />` element except that this dropdown can be stylized.
- * Throws an error if {@link Props.defaultValue} is not contained in {@link Props.data}.
+ * The dropdown offers a search functionality by which items can be filtered out. Throws an error if
+ * {@link Props.defaultValue} is not contained in {@link Props.data}.
  * @example
  * ```tsx
  * const data = [
@@ -235,17 +236,17 @@ type Props = {
 	name?: string;
 
 	/**
-	 * `false` for dropdown to be disabled. `true` by default.
+	 * Enable or disable dropdown input. `true` by default.
 	 */
 	enabled?: boolean;
 
 	/**
-	 * `true` for dropdown to be required. `false` by default.
+	 * Make the input required. `false` by default.
 	 */
 	required?: boolean;
 
 	/**
-	 * `true` if an input need to be editable. `true` by default.
+	 * Make input editable in order to allow searching among items. `true` by default.
 	 */
 	editable?: boolean;
 
@@ -255,7 +256,7 @@ type Props = {
 	placeholder?: string;
 
 	/**
-	 * Default value. Should be one of the values included in {@link Props.data}.
+	 * Default value. Should be the one of the values included in {@link Props.data}.
 	 */
 	defaultValue?: string;
 
@@ -265,9 +266,9 @@ type Props = {
 	className?: string;
 
 	/**
-	 * Fires each time input changes it's value.
+	 * Fires each time input changes it's value (typing or selecting values from dropdown).
 	 * @param value Current input's value.
-	 * @param state Denotes the state of the input's value. Could be one of three values:
+	 * @param state Denotes the state of the input's value. Could be one of four values:
 	 *              - "valid". The value is one of the entries in the list
 	 *              - "invalid". The value does not match any item in the list
 	 *              - "match". The value matches one or more items in the list
