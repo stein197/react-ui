@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
 		"outDir": ".",
+		"jsx": "react",
 		"rootDir": "src",
 		"strict": true,
 		"declaration": true,
