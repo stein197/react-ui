@@ -49,12 +49,12 @@ import Async from "@stein197/react-ui/Async";
 ```
 
 #### Options
-| Name       | Type                                                  | Description                                     |
-|------------|-------------------------------------------------------|-------------------------------------------------|
-| `promise`  | `Promise<T>`                                          | Promise to wait for resolving                   |
-| `children` | `((result: T) => React.ReactNode) | React.ReactNode`  | Content to render after the promise is resolved |
-| `fallback` | `?((reason: U) => React.ReactNode) | React.ReactNode` | Content to render in case of rejected promise   |
-| `stub`     | `?React.ReactNode`                                    | Content to render while promise is pending      |
+| Name       | Type                                                   | Description                                     |
+|------------|--------------------------------------------------------|-------------------------------------------------|
+| `promise`  | `Promise<T>`                                           | Promise to wait for resolving                   |
+| `children` | `((result: T) => React.ReactNode) \| React.ReactNode`  | Content to render after the promise is resolved |
+| `fallback` | `?((reason: U) => React.ReactNode) \| React.ReactNode` | Content to render in case of rejected promise   |
+| `stub`     | `?React.ReactNode`                                     | Content to render while promise is pending      |
 
 > NOTE: More detailed documentation can be found in TSDoc blocks in source code.
 
