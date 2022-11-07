@@ -4,7 +4,7 @@
   "description": "Set of common UI components for React",
   "main": "index.js",
   "scripts": {
-    "clean": "del .\\*.js .\\*.d.ts .\\demo\\*.js .\\demo\\*.map 2>nul",
+    "clean": "del .\\*.js .\\*.d.ts .\\demo\\*.js .\\demo\\*.css .\\demo\\*.map .\\*.tgz 2>nul",
     "build": "tsc"
   },
   "repository": {
