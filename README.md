@@ -61,5 +61,6 @@ import Async from "@stein197/react-ui/Async";
 ## NPM scripts
 - `clean` clean the directory out of compiled files
 - `build` compile source code
-- `demo` compile demo source code in `demo` directory
-- `demo:watch` the same as `demo` but it watches for changes
+
+## Demo
+Info to build and run demo can be found [here](demo/README.md)

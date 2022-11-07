@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import Dropdown from "../src/Dropdown";
-import Async from "../src/Async";
+import Dropdown from "@stein197/react-ui/Dropdown";
+import Async from "@stein197/react-ui/Async";
 
 const list: string[] = [
 	"Afghanistan",

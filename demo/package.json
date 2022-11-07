@@ -1,0 +1,25 @@
+{
+  "name": "react-ui-demo",
+  "version": "1.0.0",
+  "description": "React UI demo",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --load-path=node_modules --style=compressed --embed-sources index.scss index.css",
+    "compile": "microbundle --tsconfig ../tsconfig.dev.json -i index.tsx -o index.js -f iife --no-generateTypes --no-pkg-main --define process.env.NODE_ENV=development --external=none --jsx=React.createElement --jsxFragment=React.Fragment",
+    "build": "npm run sass && npm run compile",
+    "server": "http-server -c-1"
+  },
+  "author": "Nail' Gafarov",
+  "license": "MIT",
+  "dependencies": {
+    "@stein197/react-ui": "file:../stein197-react-ui-1.0.0.tgz",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/react-dom": "18.0.8",
+    "http-server": "14.1.1",
+    "microbundle": "0.15.1",
+    "sass": "1.56.0"
+  }
+}
