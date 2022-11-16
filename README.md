@@ -5,6 +5,10 @@ A tiny package that contains a few UI components written in and for React. Demo 
 ```
 npm install @stein197/react-ui
 ```
+Then add `index.css` to your stylesheet:
+```sass
+@import "@stein197/react-ui/index";
+```
 
 ## Components
 
