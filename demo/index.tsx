@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import Dropdown from "@stein197/react-ui/Dropdown";
 import Async from "@stein197/react-ui/Async";
 import {Switch, Case, Default} from "@stein197/react-ui/Switch";
+import {If, Then, Else} from "@stein197/react-ui/If";
 
 const list: string[] = [
 	"Afghanistan",
@@ -211,6 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			<DropdownDemo />
 			<AsyncDemo />
 			<SwitchDemo />
+			<IfDemo />
 		</div>
 	);
 });
@@ -424,6 +426,28 @@ function SwitchDemo(): JSX.Element {
 						<Case value="Third">Selected value: Third</Case>
 						<Default>No values selected</Default>
 					</Switch>
+				</div>
+			</div>
+		</>
+	);
+}
+
+function IfDemo(): JSX.Element {
+	const [state, setState] = React.useState<boolean>(true);
+	return (
+		<>
+			<p className="h2 text-mono">&lt;If /&gt;, &lt;Then /&gt;, &lt;Else /&gt;</p>
+			<div className="card">
+				<label>
+					<input type="checkbox" defaultChecked={state} onChange={() => setState(!state)} />
+				</label>
+				<br />
+				<pre className="card-white">{"<If value={state}>\n\t<Then>Checked</Then>\n\t<Else>Unchecked</Else>\n</If>"}</pre>
+				<div className="card-white">
+					<If value={state}>
+						<Then>Checked</Then>
+						<Else>Unchecked</Else>
+					</If>
 				</div>
 			</div>
 		</>
