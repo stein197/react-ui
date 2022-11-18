@@ -15,6 +15,7 @@ import KeyboardCode from "@stein197/util/KeyboardCode";
  * <Dropdown defaultValue="First" placeholder="Select a place" data={data} onChange={console.log} editable={false} />
  * ```
  */
+// TODO: Tests
 export default class Dropdown extends React.PureComponent<Props, State> {
 
 	public static defaultProps: Partial<Props> = {
