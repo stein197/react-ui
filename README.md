@@ -60,6 +60,42 @@ import Async from "@stein197/react-ui/Async";
 | `fallback` | `?((reason: U) => React.ReactNode) \| React.ReactNode` | Content to render in case of rejected promise   |
 | `stub`     | `?React.ReactNode`                                     | Content to render while promise is pending      |
 
+### Switch, Case, Default
+Component for implementing switch-case-default clause but in JSX. The usage is the same as the usage of ordinary switch statement.
+```tsx
+import React from "react";
+import {Switch, Case, Default} from "@stein197/react-ui/Switch";
+
+<Switch value="2">
+	<Case value="1">First</Case>
+	<Case value="2">Second</Case>
+	<Case value="3">Third</Case>
+	<Default>None</Default>
+</Switch>
+```
+
+#### Options
+| Name    | Type  | Description   |
+|---------|-------|---------------|
+| `value` | `any` | Value to test |
+
+### If, Then, Else
+Component for conditional rendering, instead of using JS operators
+```tsx
+import React from "react";
+import {If, Then, Else} from "@stein197/react-ui/If";
+
+<If value={false}>
+	<Then>yes</Then>
+	<Else>no</Else>
+</If>
+```
+
+#### Options
+| Name    | Type      | Description   |
+|---------|-----------|---------------|
+| `value` | `boolean` | Value to test |
+
 > NOTE: More detailed documentation can be found in TSDoc blocks in source code.
 
 ## NPM scripts
