@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import KeyboardCode from "@stein197/util/KeyboardCode";
 
 /**
