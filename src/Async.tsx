@@ -1,10 +1,9 @@
-import React from "react";
+import * as React from "react";
 import PromiseState from "@stein197/util/PromiseState";
 
 /**
  * Renders its children only when the promise is resolved.
  */
-// TODO: Tests
 export default class Async<T, U = any> extends React.PureComponent<Props<T, U>, State<T, U>> {
 
 	public constructor(props: Props<T, U>) {
