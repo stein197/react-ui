@@ -6,7 +6,8 @@ import * as jsdom from "jsdom";
 import * as mocha from "mocha";
 import {If, Then, Else} from "../src/If";
 
-mocha.describe("<If>...</If>", () => {
+// TODO: Move the boilerplate setup outside
+mocha.describe("<If />", () => {
 	let container: HTMLDivElement
 	let root: Root;
 	const oldWindow = global.window;

@@ -28,20 +28,23 @@ export function If(props: IfProps): JSX.Element {
 }
 
 /**
- * Wrapper for truthy value. Just returns its contents
+ * Then-clause. Returns content when the value is true
  */
 export function Then(props: EmptyProps): JSX.Element {
 	return props.children;
 }
 
 /**
- * Wrapper for falsy value. Just returns its contents
+ * Else-clause. Returns content when the value is false
  */
 export function Else(props: EmptyProps): JSX.Element {
 	return props.children;
 }
 
 type IfProps = {
+	/**
+	 * Value to test.
+	 */
 	value: boolean;
 	children?: any;
 }
