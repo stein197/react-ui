@@ -1,6 +1,5 @@
 import * as assert from "assert";
 import * as React from "react";
-import {act} from "react-dom/test-utils";
 import * as mocha from "mocha";
 import {Switch, Case, Default} from "../src/Switch";
 import Sandbox from "./Sandbox";
