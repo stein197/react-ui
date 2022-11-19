@@ -1,4 +1,21 @@
-// TODO: Documentation, tests, Maybe we should use React.Children
+// TODO: Maybe we should use React.Children
+/**
+ * Component for conditional rendering, instead of using JS operators. It could be used with Then/Else components:
+ * ```tsx
+ * // Will render the contents of Else component
+ * <If value={false}>
+ * 	<Then>yes</Then>
+ * 	<Else>no</Else>
+ * </If>
+ * ```
+ * Or without them:
+ * ```tsx
+ * <If value={true}>
+ * 	yes
+ * </If>
+ * ```
+ * In that case there is no fallback for falsy value.
+ */
 export function If(props: IfProps): JSX.Element {
 	const children = props.children == null ? [] : Array.isArray(props.children) ? props.children : [props.children];
 	const thenClause = children.find(child => child.type === Then);
@@ -10,12 +27,16 @@ export function If(props: IfProps): JSX.Element {
 	return props.value ? props.children : null;
 }
 
-// TODO: Documentation, tests
+/**
+ * Wrapper for truthy value. Just returns its contents
+ */
 export function Then(props: EmptyProps): JSX.Element {
 	return props.children;
 }
 
-// TODO: Documentation, tests
+/**
+ * Wrapper for falsy value. Just returns its contents
+ */
 export function Else(props: EmptyProps): JSX.Element {
 	return props.children;
 }
