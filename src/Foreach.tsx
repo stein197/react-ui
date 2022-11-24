@@ -8,8 +8,18 @@ export default class Foreach<T> extends React.Component<Props<T>> {
 	}
 }
 
-// TODO: Documentation
 type Props<T> = {
+
+	/**
+	 * Data to walk through.
+	 */
 	data: T[];
+
+	/**
+	 * Callback to be called per every item in {@link Props.data}. 
+	 * @param item An item.
+	 * @param index An index of the item.
+	 * @returns The contents to render.
+	 */
 	children(item: T, index: number): React.ReactNode;
 }

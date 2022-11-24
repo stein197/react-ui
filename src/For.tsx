@@ -30,9 +30,22 @@ export default class For extends React.Component<Props> {
 	}
 }
 
-// TODO: Documentation
 type Props = {
+
+	/**
+	 * From which to start counting. 0 by default.
+	 */
 	from?: number | `${number}`;
+
+	/**
+	 * A number until which to proceed counting including the number itself.
+	 */
 	to: number | `${number}`;
+
+	/**
+	 * Callback to be called per every loop.
+	 * @param index Current index of the loop, starting from {@link Props.from} until {@link Props.to}.
+	 * @returns The contents to render.
+	 */
 	children(index: number): React.ReactNode;
 }
