@@ -96,6 +96,39 @@ import {If, Then, Else} from "@stein197/react-ui/If";
 |---------|-----------|---------------|
 | `value` | `boolean` | Value to test |
 
+### Foreach
+Replacement for `items.map(...)` construction
+```tsx
+<Foreach items={["First", "Second", "Third"]}>
+	{(item, index) => (
+		<p key={index}>item: {item}, index: {index}</p>
+	)}
+</Foreach>
+```
+
+#### Options
+| Name       | Type                                          | Description                          |
+|------------|-----------------------------------------------|--------------------------------------|
+| `data`     | `T[]`                                         | Data to walk through                 |
+| `children` | `(item: T, index: number) => React.ReactNode` | Callback to be called per every item |
+
+### For
+For-loop as a react component
+```tsx
+<For from="1" to="3">
+	{i => (
+		<p key={i}>index: {i}</p>
+	)}
+</For>
+```
+
+#### Options
+| Name       | Type                                 | Description                                                          |
+|------------|--------------------------------------|----------------------------------------------------------------------|
+| `from`     | `number | \`${number}\``             | From which to start counting. 0 by default                           |
+| `to`       | `number | \`${number}\``             | A number until which to proceed counting including the number itself |
+| `children` | `(index: number) => React.ReactNode` | Callback to be called per every loop                                 |
+
 > NOTE: More detailed documentation can be found in TSDoc blocks in source code.
 
 ## NPM scripts
