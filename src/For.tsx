@@ -1,6 +1,16 @@
 import * as React from "react";
 
-// TODO: Documentation, tests
+/**
+ * For-loop as a react component.
+ * @example
+ * ```tsx
+ * <For from="1" to="3">
+ * 	{i => (
+ * 		<p key={i}>index: {i}</p>
+ * 	)}
+ * </For>
+ * ```
+ */
 export default class For extends React.Component<Props> {
 
 	public static readonly defaultProps = {

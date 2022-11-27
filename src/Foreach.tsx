@@ -1,6 +1,16 @@
 import * as React from "react";
 
-// TODO: Documentation, tests
+/**
+ * Replacement for `items.map(...)` construction.
+ * @example
+ * ```tsx
+ * <Foreach items={["First", "Second", "Third"]}>
+ * 	{(item, index) => (
+ * 		<p key={index}>item: {item}, index: {index}</p>
+ * 	)}
+ * </Foreach>
+ * ```
+ */
 export default class Foreach<T> extends React.Component<Props<T>> {
 
 	public override render(): React.ReactNode {
@@ -19,7 +29,7 @@ type Props<T> = {
 	 * Callback to be called per every item in {@link Props.data}. 
 	 * @param item An item.
 	 * @param index An index of the item.
-	 * @returns The contents to render.
+	 * @returns Contents to render.
 	 */
 	children(item: T, index: number): React.ReactNode;
 }
