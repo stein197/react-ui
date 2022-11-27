@@ -21,7 +21,6 @@ export default class For extends React.Component<Props> {
 	public override render(): React.ReactNode {
 		const diff = this.to - this.from;
 		const result = new Array(diff ? diff + 1 : diff);
-		console.log(this.from, this.to);
 		for (let i = 0; i < result.length; i++) {
 			const realIndex = i + this.from;
 			result[i] = this.props.children(realIndex);
