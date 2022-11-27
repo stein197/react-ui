@@ -20,7 +20,8 @@ table {
 	width: 100%;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
 	padding: 10px;
 	width: 100%;
 	border-radius: 50px;

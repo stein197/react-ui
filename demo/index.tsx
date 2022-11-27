@@ -4,8 +4,10 @@ import Dropdown from "@stein197/react-ui/Dropdown";
 import Async from "@stein197/react-ui/Async";
 import {Switch, Case, Default} from "@stein197/react-ui/Switch";
 import {If, Then, Else} from "@stein197/react-ui/If";
+import Foreach from "@stein197/react-ui/Foreach";
+import For from "@stein197/react-ui/For";
 
-const list: string[] = [
+const countryArray: string[] = [
 	"Afghanistan",
 	"Albania",
 	"Algeria",
@@ -213,6 +215,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			<AsyncDemo />
 			<SwitchDemo />
 			<IfDemo />
+			<ForeachDemo />
+			<ForDemo />
 		</div>
 	);
 });
@@ -223,7 +227,7 @@ function DropdownDemo(): JSX.Element {
 	const [required, setRequired] = React.useState<boolean>(false);
 	const [editable, setEditable] = React.useState<boolean>(true);
 	const [placeholder, setPlaceholder] = React.useState<string>("Select a country");
-	const [defaultValue, setDefaultValue] = React.useState<string>(list[0]);
+	const [defaultValue, setDefaultValue] = React.useState<string>(countryArray[0]);
 	const [className, setClassName] = React.useState<string>("dropdown-country");
 	const [eventValue, setEventValue] = React.useState<{value?: string; state?: string}>({});
 	const onChange = React.useCallback((value: string, state: string): void => setEventValue({value, state}), []);
@@ -279,7 +283,7 @@ function DropdownDemo(): JSX.Element {
 					</tbody>
 				</table>
 				<pre className="card-white">{JSON.stringify(eventValue, undefined, "\t")}</pre>
-				<Dropdown data={list} name={name} enabled={enabled} required={required} editable={editable} placeholder={placeholder} defaultValue={defaultValue} className={className} onChange={onChange} />
+				<Dropdown data={countryArray} name={name} enabled={enabled} required={required} editable={editable} placeholder={placeholder} defaultValue={defaultValue} className={className} onChange={onChange} />
 			</div>
 		</>
 	);
@@ -418,7 +422,7 @@ function SwitchDemo(): JSX.Element {
 					<span>None</span>
 				</label>
 				<br />
-				<pre className="card-white">{"<Switch value={value}>\n\t<Case value=\"First\">Selected value: First</Case>\n\t<Case value=\"Second\">Selected value: Second</Case>\n\t<Case value=\"Third\">Selected value: Third</Case>\n\t<Default>No values selected</Default>\n</Switch>"}</pre>
+				<pre className="card-white">{`<Switch value="${value}">\n\t<Case value=\"First\">Selected value: First</Case>\n\t<Case value=\"Second\">Selected value: Second</Case>\n\t<Case value=\"Third\">Selected value: Third</Case>\n\t<Default>No values selected</Default>\n</Switch>`}</pre>
 				<div className="card-white">
 					<Switch value={value}>
 						<Case value="First">Selected value: First</Case>
@@ -442,12 +446,77 @@ function IfDemo(): JSX.Element {
 					<input type="checkbox" defaultChecked={state} onChange={() => setState(!state)} />
 				</label>
 				<br />
-				<pre className="card-white">{"<If value={state}>\n\t<Then>Checked</Then>\n\t<Else>Unchecked</Else>\n</If>"}</pre>
+				<pre className="card-white">{`<If value={${state}}>\n\t<Then>Checked</Then>\n\t<Else>Unchecked</Else>\n</If>`}</pre>
 				<div className="card-white">
 					<If value={state}>
 						<Then>Checked</Then>
 						<Else>Unchecked</Else>
 					</If>
+				</div>
+			</div>
+		</>
+	);
+}
+
+function ForeachDemo(): JSX.Element {
+	const [count, setCount] = React.useState<number>(10);
+	return (
+		<>
+			<p className="h2 text-mono">&lt;Foreach /&gt;</p>
+			<div className="card">
+				<table>
+					<tbody>
+						<tr>
+							<td>Items count</td>
+							<td>
+								<input type="number" value={count} onChange={e => setCount(+e.target.value)} />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<pre className="card-white">{`<Foreach data={countryArray.slice(0, ${count})}>\n\t{(item, index) => (\n\t\t<p>item: {item}, index: {index}</p>\n\t)}\n</Foreach>`}</pre>
+				<div className="card-white">
+					<Foreach data={countryArray.slice(0, count)}>
+						{(item, index) => (
+							<p key={index}>item: {item}, index: {index}</p>
+						)}
+					</Foreach>
+				</div>
+			</div>
+		</>
+	);
+}
+
+function ForDemo(): JSX.Element {
+	const [from, setFrom] = React.useState<number>(0);
+	const [to, setTo] = React.useState<number>(10);
+	return (
+		<>
+			<p className="h2 text-mono">&lt;For /&gt;</p>
+			<div className="card">
+				<table>
+					<tbody>
+						<tr>
+							<td>From</td>
+							<td>
+								<input type="number" value={from} onChange={e => setFrom(+e.target.value)} />
+							</td>
+						</tr>
+						<tr>
+							<td>To</td>
+							<td>
+								<input type="number" value={to} onChange={e => setTo(+e.target.value)} />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<pre className="card-white">{`<For from="${from}" to="${to}">\n\t{i => (\n\t\t<p>{i}</p>\n\t)}\n</For>`}</pre>
+				<div className="card-white">
+					<For from={from} to={to}>
+						{i => (
+							<p key={i}>{i}</p>
+						)}
+					</For>
 				</div>
 			</div>
 		</>
