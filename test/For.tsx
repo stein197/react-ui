@@ -57,4 +57,20 @@ mocha.describe("<For />", () => {
 		);
 		assert.equal(sandbox.container.innerHTML, "345");
 	});
+	mocha.it("Should render correctly when \"from\" is less than 0", () => {
+		sandbox.render(
+			<For from="-2" to="2">
+				{i => i}
+			</For>
+		);
+		assert.equal(sandbox.container.innerHTML, "-2-1012");
+	});
+	mocha.it("Should render correctly when \"from\" and \"to\" is less than 0", () => {
+		sandbox.render(
+			<For from="-10" to="-8">
+				{i => i}
+			</For>
+		);
+		assert.equal(sandbox.container.innerHTML, "-10-9-8");
+	});
 });
