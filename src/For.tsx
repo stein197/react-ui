@@ -7,15 +7,21 @@ export default class For extends React.Component<Props> {
 		from: 0
 	}
 
-	private readonly from: number;
-	private readonly to: number;
+	private get from(): number {
+		return +this.props.from!;
+	}
+
+	private get to(): number {
+		return +this.props.to;
+	}
 
 	public constructor(props: Props) {
 		super(props);
-		this.from = +props.from!;
-		this.to = +props.to;
-		if (this.to < this.from)
-			throw new Error(`props.to (${this.to}) is less than props.from (${this.from})`);
+		this.checkInput();
+	}
+
+	public override componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<{}>, snapshot?: any): void {
+		this.checkInput();
 	}
 
 	public override render(): React.ReactNode {
@@ -26,6 +32,11 @@ export default class For extends React.Component<Props> {
 			result[i] = this.props.children(realIndex);
 		}
 		return result;
+	}
+
+	private checkInput(): void {
+		if (this.to < this.from)
+			throw new Error(`props.to (${this.to}) is less than props.from (${this.from})`);
 	}
 }
 
