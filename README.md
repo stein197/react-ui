@@ -129,6 +129,23 @@ For-loop as a react component
 | `to`       | `number | \`${number}\``             | A number until which to proceed counting including the number itself |
 | `children` | `(index: number) => React.ReactNode` | Callback to be called per every loop                                 |
 
+### Spinner
+Animated circle spinner component
+```tsx
+<Spinner r="50" />
+```
+
+#### options
+| Name          | Type                                 | Description                                       |
+|---------------|--------------------------------------|---------------------------------------------------|
+| `r`           | `number`                             | Radius of the circle                              |
+| `strokeWidth` | `number`                             | Width of the circle's stroke                      |
+| `strokeColor` | `string`                             | Color of the circle's stroke                      |
+| `length`      | `number`                             | Length of the segment. Accepts values from 0 to 1 |
+| `duration`    | `number`                             | Duration of one loop of animation in seconds      |
+| `direction`   | `"clockwise" \| "counter-clockwise"` | Direction in which to spin the circle             |
+| `className`   | `string`                             | Additional CSS classname                          |
+
 > NOTE: More detailed documentation can be found in TSDoc blocks in source code.
 
 ## NPM scripts
