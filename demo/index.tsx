@@ -6,6 +6,7 @@ import {Switch, Case, Default} from "@stein197/react-ui/Switch";
 import {If, Then, Else} from "@stein197/react-ui/If";
 import Foreach from "@stein197/react-ui/Foreach";
 import For from "@stein197/react-ui/For";
+import Spinner from "@stein197/react-ui/Spinner";
 
 const countryArray: string[] = [
 	"Afghanistan",
@@ -217,6 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			<IfDemo />
 			<ForeachDemo />
 			<ForDemo />
+			<SpinnerDemo />
 		</div>
 	);
 });
@@ -518,6 +520,71 @@ function ForDemo(): JSX.Element {
 						)}
 					</For>
 				</div>
+			</div>
+		</>
+	);
+}
+
+function SpinnerDemo(): JSX.Element {
+	const [r, setR] = React.useState(50);
+	const [strokeWidth, setStrokeWidth] = React.useState(1);
+	const [strokeColor, setStrokeColor] = React.useState("#000000");
+	const [length, setLength] = React.useState(.5);
+	const [duration, setDuration] = React.useState(1);
+	const [clockwise, setClockwise] = React.useState(true);
+	const [className, setClassName] = React.useState("");
+	return (
+		<>
+			<p className="h2 text-mono">&lt;Spinner /&gt;</p>
+			<div className="card">
+				<table>
+					<tbody>
+						<tr>
+							<td>r</td>
+							<td>
+								<input type="number" value={r} onChange={e => setR(+e.target.value)} />
+							</td>
+						</tr>
+						<tr>
+							<td>strokeWidth</td>
+							<td>
+								<input type="number" value={strokeWidth} onChange={e => setStrokeWidth(+e.target.value)} />
+							</td>
+						</tr>
+						<tr>
+							<td>strokeColor</td>
+							<td>
+								<input type="color" value={strokeColor} onChange={e => setStrokeColor(e.target.value)} />
+							</td>
+						</tr>
+						<tr>
+							<td>length</td>
+							<td>
+								<input type="range" value={length} min="0" max="1" step="0.01" onChange={e => setLength(+e.target.value)} />
+							</td>
+						</tr>
+						<tr>
+							<td>duration</td>
+							<td>
+								<input type="number" value={duration} onChange={e => setDuration(+e.target.value)} />
+							</td>
+						</tr>
+						<tr>
+							<td>clockwise</td>
+							<td>
+								<input type="checkbox" checked={clockwise} onChange={() => setClockwise(!clockwise)} />
+							</td>
+						</tr>
+						<tr>
+							<td>className</td>
+							<td>
+								<input type="text" value={className} onChange={e => setClassName(e.target.value)} />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div className="card-white">{`<Spinner r="${r}" strokeWidth="${strokeWidth}" strokeColor="${strokeColor}" length="${length}" duration="${duration}" direction="${clockwise}" className="${className}" />`}</div>
+				<Spinner r={r} strokeWidth={strokeWidth} strokeColor={strokeColor} length={length} duration={duration} direction={clockwise ? "clockwise" : "counter-clockwise"} className={className} />
 			</div>
 		</>
 	);
