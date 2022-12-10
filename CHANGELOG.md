@@ -3,6 +3,10 @@
 ## [Unreleased]
 - Add support for custom render function for `Dropdown` component
 
+## [1.3.0](../../compare/1.2.0..1.3.0) - 2022-12-10
+### Added
+- `Spinner` component
+
 ## [1.2.0](../../compare/1.1.0..1.2.0) - 2022-11-27
 ### Added
 - Components: `Foreach` and `For`
