@@ -31,3 +31,18 @@
 .dropdown ul li .hl {
 	font-weight: bold;
 }
+
+.spinner {
+	fill: none;
+	transform-origin: center;
+}
+
+@keyframes spin-clockwise {
+	from {
+		transform: rotate(0turn);
+	}
+
+	to {
+		transform: rotate(1turn);
+	}
+}
