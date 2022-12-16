@@ -9,6 +9,7 @@ export default class Spinner extends React.Component<Props> {
 		strokeWidth: 1,
 		strokeColor: "black",
 		bgStrokeColor: "transparent",
+		roundLinecap: true,
 		length: .3,
 		duration: 1,
 		direction: "clockwise"
@@ -40,6 +41,7 @@ export default class Spinner extends React.Component<Props> {
 	private get style(): React.CSSProperties {
 		return {
 			strokeWidth: this.strokeWidth,
+			strokeLinecap: this.props.roundLinecap ? "round" : "inherit"
 		};
 	}
 
@@ -96,6 +98,12 @@ type Props = {
 	 * @defaultValue `"transparent"`
 	 */
 	bgStrokeColor?: string;
+
+	/**
+	 * Makes linecaps round for circle.
+	 * @defaultValue `true`
+	 */
+	roundLinecap?: boolean;
 
 	/**
 	 * Length of the segment. Accepts values from 0 to 1.

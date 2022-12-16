@@ -527,12 +527,13 @@ function ForDemo(): JSX.Element {
 
 function SpinnerDemo(): JSX.Element {
 	const [r, setR] = React.useState(50);
-	const [strokeWidth, setStrokeWidth] = React.useState(1);
-	const [strokeColor, setStrokeColor] = React.useState("#000000");
-	const [bgStrokeColor, setBgStrokeColor] = React.useState("transparent");
-	const [length, setLength] = React.useState(.5);
-	const [duration, setDuration] = React.useState(1);
-	const [clockwise, setClockwise] = React.useState(true);
+	const [strokeWidth, setStrokeWidth] = React.useState(Spinner.defaultProps.strokeWidth);
+	const [strokeColor, setStrokeColor] = React.useState(Spinner.defaultProps.strokeColor);
+	const [bgStrokeColor, setBgStrokeColor] = React.useState(Spinner.defaultProps.bgStrokeColor);
+	const [roundLinecap, setRoundLinecap] = React.useState(Spinner.defaultProps.roundLinecap);
+	const [length, setLength] = React.useState(Spinner.defaultProps.length);
+	const [duration, setDuration] = React.useState(Spinner.defaultProps.duration);
+	const [clockwise, setClockwise] = React.useState(Spinner.defaultProps.direction === "clockwise");
 	const [className, setClassName] = React.useState("");
 	return (
 		<>
@@ -565,6 +566,12 @@ function SpinnerDemo(): JSX.Element {
 							</td>
 						</tr>
 						<tr>
+							<td>roundLinecap</td>
+							<td>
+								<input type="checkbox" checked={roundLinecap} onChange={() => setRoundLinecap(!roundLinecap)} />
+							</td>
+						</tr>
+						<tr>
 							<td>length</td>
 							<td>
 								<input type="range" value={length} min="0" max="1" step="0.01" onChange={e => setLength(+e.target.value)} />
@@ -591,7 +598,7 @@ function SpinnerDemo(): JSX.Element {
 					</tbody>
 				</table>
 				<div className="card-white">{`<Spinner r="${r}" strokeWidth="${strokeWidth}" strokeColor="${strokeColor}" length="${length}" duration="${duration}" direction="${clockwise}" className="${className}" />`}</div>
-				<Spinner r={r} strokeWidth={strokeWidth} strokeColor={strokeColor} bgStrokeColor={bgStrokeColor} length={length} duration={duration} direction={clockwise ? "clockwise" : "counter-clockwise"} className={className} />
+				<Spinner r={r} strokeWidth={strokeWidth} strokeColor={strokeColor} bgStrokeColor={bgStrokeColor} roundLinecap={roundLinecap} length={length} duration={duration} direction={clockwise ? "clockwise" : "counter-clockwise"} className={className} />
 			</div>
 		</>
 	);
