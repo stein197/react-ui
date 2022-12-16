@@ -51,7 +51,7 @@ export default class Spinner extends React.Component<Props> {
 			stroke: this.props.strokeColor,
 			strokeDasharray: `${segmentLength} ${gapLength}`,
 			transition: `stroke-dasharray ${this.props.direction}s linear`,
-			animation: `spin-clockwise ${this.props.duration}s linear 0s infinite ${this.props.direction === "clockwise" ? "normal" : "reverse"}`
+			animation: `spin ${this.props.duration}s linear 0s infinite ${this.props.direction === "clockwise" ? "normal" : "reverse"}`
 		};
 	}
 

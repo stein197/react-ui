@@ -40,7 +40,7 @@
 	transform-origin: center;
 }
 
-@keyframes spin-clockwise {
+@keyframes spin {
 	from {
 		transform: rotate(0turn);
 	}
