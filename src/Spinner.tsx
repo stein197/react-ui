@@ -12,7 +12,7 @@ export default class Spinner extends React.Component<Props> {
 		roundLinecap: true,
 		length: .3,
 		duration: 1,
-		direction: "clockwise"
+		clockwise: true
 	}
 
 	private readonly ref: React.RefObject<SVGSVGElement> = React.createRef();
@@ -52,8 +52,8 @@ export default class Spinner extends React.Component<Props> {
 		return {
 			stroke: this.props.strokeColor,
 			strokeDasharray: `${segmentLength} ${gapLength}`,
-			transition: `stroke-dasharray ${this.props.direction}s linear`,
-			animation: `spin ${this.props.duration}s linear 0s infinite ${this.props.direction === "clockwise" ? "normal" : "reverse"}`
+			transition: `stroke-dasharray ${this.props.clockwise}s linear`,
+			animation: `spin ${this.props.duration}s linear 0s infinite ${this.props.clockwise ? "normal" : "reverse"}`
 		};
 	}
 
@@ -119,9 +119,9 @@ type Props = {
 
 	/**
 	 * Direction in which to spin the circle.
-	 * @defaultValue `"clockWise"`
+	 * @defaultValue `true`
 	 */
-	direction?: "clockwise" | "counter-clockwise";
+	clockwise?: boolean;
 
 	/**
 	 * Additional CSS classname.

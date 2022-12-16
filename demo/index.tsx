@@ -533,7 +533,7 @@ function SpinnerDemo(): JSX.Element {
 	const [roundLinecap, setRoundLinecap] = React.useState(Spinner.defaultProps.roundLinecap);
 	const [length, setLength] = React.useState(Spinner.defaultProps.length);
 	const [duration, setDuration] = React.useState(Spinner.defaultProps.duration);
-	const [clockwise, setClockwise] = React.useState(Spinner.defaultProps.direction === "clockwise");
+	const [clockwise, setClockwise] = React.useState(Spinner.defaultProps.clockwise);
 	const [className, setClassName] = React.useState("");
 	return (
 		<>
@@ -598,7 +598,7 @@ function SpinnerDemo(): JSX.Element {
 					</tbody>
 				</table>
 				<div className="card-white">{`<Spinner r="${r}" strokeWidth="${strokeWidth}" strokeColor="${strokeColor}" length="${length}" duration="${duration}" direction="${clockwise}" className="${className}" />`}</div>
-				<Spinner r={r} strokeWidth={strokeWidth} strokeColor={strokeColor} bgStrokeColor={bgStrokeColor} roundLinecap={roundLinecap} length={length} duration={duration} direction={clockwise ? "clockwise" : "counter-clockwise"} className={className} />
+				<Spinner r={r} strokeWidth={strokeWidth} strokeColor={strokeColor} bgStrokeColor={bgStrokeColor} roundLinecap={roundLinecap} length={length} duration={duration} clockwise={clockwise} className={className} />
 			</div>
 		</>
 	);
