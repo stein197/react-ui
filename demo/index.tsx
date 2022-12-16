@@ -597,7 +597,7 @@ function SpinnerDemo(): JSX.Element {
 						</tr>
 					</tbody>
 				</table>
-				<div className="card-white">{`<Spinner r="${r}" strokeWidth="${strokeWidth}" strokeColor="${strokeColor}" length="${length}" duration="${duration}" direction="${clockwise}" className="${className}" />`}</div>
+				<pre className="card-white">{`<Spinner\n\tr="${r}"\n\tstrokeWidth="${strokeWidth}"\n\tstrokeColor="${strokeColor}"\n\tbgStrokeColor="${bgStrokeColor}"\n\troundLinecap="${roundLinecap}"\n\tlength="${length}"\n\tduration="${duration}"\n\tclockwise="${clockwise}"\n\tclassName="${className}"\n/>`}</pre>
 				<Spinner r={r} strokeWidth={strokeWidth} strokeColor={strokeColor} bgStrokeColor={bgStrokeColor} roundLinecap={roundLinecap} length={length} duration={duration} clockwise={clockwise} className={className} />
 			</div>
 		</>
