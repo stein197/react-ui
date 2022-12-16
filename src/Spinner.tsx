@@ -29,7 +29,11 @@ export default class Spinner extends React.Component<Props> {
 	}
 
 	private get realRadius(): number {
-		return +this.props.r - Math.ceil(+this.props.strokeWidth / 2);
+		return +this.props.r - Math.ceil(this.strokeWidth / 2);
+	}
+
+	private get strokeWidth(): number {
+		return +this.props.strokeWidth > +this.props.r ? +this.props.r : +this.props.strokeWidth;
 	}
 
 	private get style(): React.CSSProperties {
@@ -37,7 +41,7 @@ export default class Spinner extends React.Component<Props> {
 		const segmentLength = Math.round(circleLength * +this.props.length!);
 		const gapLength = circleLength - segmentLength;
 		return {
-			strokeWidth: this.props.strokeWidth,
+			strokeWidth: this.strokeWidth,
 			stroke: this.props.strokeColor,
 			strokeDasharray: `${segmentLength} ${gapLength}`,
 			transition: `stroke-dasharray ${this.props.direction}s linear`,
