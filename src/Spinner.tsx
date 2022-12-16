@@ -8,6 +8,7 @@ export default class Spinner extends React.Component<Props> {
 	public static readonly defaultProps = {
 		strokeWidth: 1,
 		strokeColor: "black",
+		bgStrokeColor: "transparent",
 		length: .3,
 		duration: 1,
 		direction: "clockwise"
@@ -37,11 +38,16 @@ export default class Spinner extends React.Component<Props> {
 	}
 
 	private get style(): React.CSSProperties {
+		return {
+			strokeWidth: this.strokeWidth,
+		};
+	}
+
+	private get fgCircleStyle(): React.CSSProperties {
 		const circleLength = Math.ceil(2 * Math.PI * this.realRadius);
 		const segmentLength = Math.round(circleLength * +this.props.length!);
 		const gapLength = circleLength - segmentLength;
 		return {
-			strokeWidth: this.strokeWidth,
 			stroke: this.props.strokeColor,
 			strokeDasharray: `${segmentLength} ${gapLength}`,
 			transition: `stroke-dasharray ${this.props.direction}s linear`,
@@ -49,11 +55,18 @@ export default class Spinner extends React.Component<Props> {
 		};
 	}
 
+	private get bgCircleStyle(): React.CSSProperties {
+		return {
+			stroke: this.props.bgStrokeColor,
+		};
+	}
+
 	public override render(): React.ReactNode {
 		const size = this.rootSize;
 		return (
 			<svg ref={this.ref} xmlns="http://www.w3.org/2000/svg" className={this.className} viewBox={`0 0 ${size} ${size}`} width={size} height={size} style={this.style}>
-				<circle cx={this.props.r} cy={this.props.r} r={this.realRadius} />
+				<circle cx={this.props.r} cy={this.props.r} r={this.realRadius} style={this.bgCircleStyle} />
+				<circle cx={this.props.r} cy={this.props.r} r={this.realRadius} style={this.fgCircleStyle} />
 			</svg>
 		);
 	}
@@ -77,6 +90,12 @@ type Props = {
 	 * @defaultValue `"black"`
 	 */
 	strokeColor?: string;
+
+	/**
+	 * Color of the background ring stroke.
+	 * @defaultValue `"transparent"`
+	 */
+	bgStrokeColor?: string;
 
 	/**
 	 * Length of the segment. Accepts values from 0 to 1.

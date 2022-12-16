@@ -529,6 +529,7 @@ function SpinnerDemo(): JSX.Element {
 	const [r, setR] = React.useState(50);
 	const [strokeWidth, setStrokeWidth] = React.useState(1);
 	const [strokeColor, setStrokeColor] = React.useState("#000000");
+	const [bgStrokeColor, setBgStrokeColor] = React.useState("transparent");
 	const [length, setLength] = React.useState(.5);
 	const [duration, setDuration] = React.useState(1);
 	const [clockwise, setClockwise] = React.useState(true);
@@ -558,6 +559,12 @@ function SpinnerDemo(): JSX.Element {
 							</td>
 						</tr>
 						<tr>
+							<td>bgStrokeColor</td>
+							<td>
+								<input type="color" value={bgStrokeColor} onChange={e => setBgStrokeColor(e.target.value)} />
+							</td>
+						</tr>
+						<tr>
 							<td>length</td>
 							<td>
 								<input type="range" value={length} min="0" max="1" step="0.01" onChange={e => setLength(+e.target.value)} />
@@ -584,7 +591,7 @@ function SpinnerDemo(): JSX.Element {
 					</tbody>
 				</table>
 				<div className="card-white">{`<Spinner r="${r}" strokeWidth="${strokeWidth}" strokeColor="${strokeColor}" length="${length}" duration="${duration}" direction="${clockwise}" className="${className}" />`}</div>
-				<Spinner r={r} strokeWidth={strokeWidth} strokeColor={strokeColor} length={length} duration={duration} direction={clockwise ? "clockwise" : "counter-clockwise"} className={className} />
+				<Spinner r={r} strokeWidth={strokeWidth} strokeColor={strokeColor} bgStrokeColor={bgStrokeColor} length={length} duration={duration} direction={clockwise ? "clockwise" : "counter-clockwise"} className={className} />
 			</div>
 		</>
 	);

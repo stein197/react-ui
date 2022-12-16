@@ -34,6 +34,9 @@
 
 .spinner {
 	fill: none;
+}
+
+.spinner * {
 	transform-origin: center;
 }
 
