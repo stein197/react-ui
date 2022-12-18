@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from "react";
 import array from "@stein197/util/array";
 import type * as type from "../type";
@@ -80,16 +79,16 @@ export default class ComponentPlayground<T extends React.ComponentType<React.Com
 
 	private onChange = (e: React.SyntheticEvent) => {
 		let curNode = e.target as Element;
-		while (!curNode.getAttribute("data-name"))
+		while (!curNode.getAttribute("data-name") && curNode.parentElement)
 			curNode = curNode.parentElement;
-		const name = curNode.getAttribute("data-name");
-		const value = e.target.value;
+		const name = curNode.getAttribute("data-name")!;
+		const value = (e.target as HTMLInputElement).value;
 		const valueType = typeof this.state.props[name];
 		this.setState({
 			props: {
 				...this.state.props,
 				[name]: valueType === "boolean" ? (
-					e.target.checked
+					(e.target as HTMLInputElement).checked
 				) : valueType === "number" ? (
 					+value
 				) : (
