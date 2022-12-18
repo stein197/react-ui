@@ -18,12 +18,19 @@ body {
 table {
 	border-collapse: collapse;
 	width: 100%;
+
+	td {
+		width: 50%;
+	}
+}
+
+input {
+	width: 100%;
 }
 
 input[type="text"],
 input[type="number"] {
 	padding: 10px;
-	width: 100%;
 	border-radius: 50px;
 	border: 1px solid gray;
 	outline: none;
