@@ -37,7 +37,7 @@ class Spinner extends React.Component<Props> {
 	}
 
 	private get strokeWidth(): number {
-		return +this.props.strokeWidth > +this.props.r ? +this.props.r : +this.props.strokeWidth;
+		return +this.props.strokeWidth! > +this.props.r ? +this.props.r : +this.props.strokeWidth!;
 	}
 
 	private get style(): React.CSSProperties {
@@ -87,7 +87,7 @@ type Props = {
 	 * Width of the circle's stroke.
 	 * @defaultValur `1`
 	 */
-	strokeWidth: number | `${number}`;
+	strokeWidth?: number | `${number}`;
 
 	/**
 	 * Color of the circle's stroke.
