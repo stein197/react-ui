@@ -71,6 +71,7 @@ export default class ComponentPlayground<T extends React.ComponentType<React.Com
 						</tbody>
 					</table>
 					<pre className="card-white">{this.props.renderCode ? this.props.renderCode(this.componentName, this.state.props) : ComponentPlayground.defaultRenderCode(this.componentName, this.state.props)}</pre>
+					{/* @ts-ignore */}
 					{this.props.children ? this.props.children(this.state.props) : React.createElement(this.props.component, this.state.props)}
 				</div>
 			</>
@@ -98,8 +99,8 @@ export default class ComponentPlayground<T extends React.ComponentType<React.Com
 		});
 	}
 
-	private static defaultRenderCode(name: string, props): string {
-		return `<${name}\n\t${Object.entries(props).map(([key, value]) => `${key}="${value}"`).join("\n\t")}\n/>`;
+	private static defaultRenderCode<T extends React.ComponentType<React.ComponentProps<T>>>(name: string, props: React.ComponentProps<T>): string {
+		return `<${name}\n\t${Object.entries(props as any).map(([key, value]) => `${key}="${value}"`).join("\n\t")}\n/>`;
 	}
 }
 
