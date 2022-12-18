@@ -1,13 +1,7 @@
 export type InputType = "boolean" | "number" | "string" | "list" | "range" | "color";
 
 export type PropDescriptorMap<T> = {
-	[K in keyof T]: boolean extends T[K] ? (
-		BooleanPropDescriptor
-	) : number extends T[K] ? (
-		NumberPropDescriptor | RangePropDescriptor
-	) : (
-		StringPropDescriptor | ListPropDescriptor
-	)
+	[K in keyof T]: PropDescriptor
 }
 
 export type PropDescriptor = BooleanPropDescriptor | NumberPropDescriptor | StringPropDescriptor | ListPropDescriptor | RangePropDescriptor

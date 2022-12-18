@@ -215,7 +215,27 @@ document.addEventListener("DOMContentLoaded", () => {
 			<h1 className="text-center">Demos</h1>
 			<DropdownDemo />
 			<AsyncDemo />
-			<SwitchDemo />
+			<ComponentPlayground name="Switch" component={Switch} props={{
+				value: {
+					type: "list",
+					defaultValue: "None",
+					data: [
+						"First",
+						"Second",
+						"Third",
+						"None"
+					]
+				}
+			}} renderCode={(name, props) => `<${name} value="${props.value}">\n\t<Case value=\"First\">Selected value: First</Case>\n\t<Case value=\"Second\">Selected value: Second</Case>\n\t<Case value=\"Third\">Selected value: Third</Case>\n\t<Default>No values selected</Default>\n</Switch>`}>
+				{props => (
+					<Switch value={props.value}>
+						<Case value="First">Selected value: First</Case>
+						<Case value="Second">Selected value: Second</Case>
+						<Case value="Third">Selected value: Third</Case>
+						<Default>No values selected</Default>
+					</Switch>
+				)}
+			</ComponentPlayground>
 			<ComponentPlayground name="If" component={If} props={{
 				value: {
 					type: "boolean",
@@ -434,46 +454,6 @@ function AsyncDemo(): JSX.Element {
 						</div>
 					))}</Async>
 				)}
-			</div>
-		</>
-	);
-}
-
-function SwitchDemo(): JSX.Element {
-	const [value, setValue] = React.useState<"First" | "Second" | "Third" | null>(null);
-	return (
-		<>
-			<p className="h2 text-mono">&lt;Switch /&gt;, &lt;Case /&gt;, &lt;Default /&gt;</p>
-			<div className="card">
-				<label>
-					<input type="radio" name="switch-demo" value="First" onChange={() => setValue("First")} />
-					<span>First</span>
-				</label>
-				<br />
-				<label>
-					<input type="radio" name="switch-demo" value="Second" onChange={() => setValue("Second")} />
-					<span>Second</span>
-				</label>
-				<br />
-				<label>
-					<input type="radio" name="switch-demo" value="Third" onChange={() => setValue("Third")} />
-					<span>Third</span>
-				</label>
-				<br />
-				<label>
-					<input type="radio" name="switch-demo" value="None" defaultChecked={true} onChange={() => setValue(null)} />
-					<span>None</span>
-				</label>
-				<br />
-				<pre className="card-white">{`<Switch value="${value}">\n\t<Case value=\"First\">Selected value: First</Case>\n\t<Case value=\"Second\">Selected value: Second</Case>\n\t<Case value=\"Third\">Selected value: Third</Case>\n\t<Default>No values selected</Default>\n</Switch>`}</pre>
-				<div className="card-white">
-					<Switch value={value}>
-						<Case value="First">Selected value: First</Case>
-						<Case value="Second">Selected value: Second</Case>
-						<Case value="Third">Selected value: Third</Case>
-						<Default>No values selected</Default>
-					</Switch>
-				</div>
 			</div>
 		</>
 	);
