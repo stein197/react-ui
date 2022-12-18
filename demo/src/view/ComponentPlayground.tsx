@@ -1,8 +1,11 @@
 // @ts-nocheck
 import React from "react";
+import array from "@stein197/util/array";
 import type * as type from "../type";
 
 export default class ComponentPlayground<T extends React.ComponentType<React.ComponentProps<T>>> extends React.Component<Props<T>, State<T>> {
+
+	private readonly __desc: Required<type.PropDescriptorMap<React.ComponentProps<T>>>;
 
 	private get componentName(): string {
 		return this.props.name ?? this.props.component.name;
@@ -13,9 +16,22 @@ export default class ComponentPlayground<T extends React.ComponentType<React.Com
 		this.state = {
 			props: {
 				...(this.props.component.defaultProps ?? {}),
+				// @ts-ignore
 				...Object.fromEntries(Object.entries(props.props).map(([key, desc]) => [key, desc.defaultValue]).filter(([, value]) => value != null))
 			}
 		};
+		// @ts-ignore
+		this.__desc = props.props;
+		const presentPropKeys = Object.keys(props.props);
+		const defaultPropKeys = Object.keys(props.component.defaultProps ?? {});
+		const allPropKeys = array.uniq([...defaultPropKeys, ...presentPropKeys]);
+		const missingPropKeys = array.diff(allPropKeys, presentPropKeys);
+		for (const key of missingPropKeys) {
+			this.__desc[key] = {
+				type: typeof this.state.props[key],
+				defaultValue: this.state.props[key]
+			};
+		}
 	}
 
 	public override render(): React.ReactNode {
