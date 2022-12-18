@@ -216,7 +216,19 @@ document.addEventListener("DOMContentLoaded", () => {
 			<DropdownDemo />
 			<AsyncDemo />
 			<SwitchDemo />
-			<IfDemo />
+			<ComponentPlayground name="If" component={If} props={{
+				value: {
+					type: "boolean",
+					defaultValue: true
+				}
+			}} renderCode={(name, props) => `<${name} value="${props.value}">\n\t<Then>Checked</Then>\n\t<Else>Unchecked</Else>\n</If>`}>
+				{props => (
+					<If value={props.value}>
+						<Then>Checked</Then>
+						<Else>Unchecked</Else>
+					</If>
+				)}
+			</ComponentPlayground>
 			<ForeachDemo />
 			<ForDemo />
 			<ComponentPlayground name="Spinner" component={Spinner} props={{
@@ -461,28 +473,6 @@ function SwitchDemo(): JSX.Element {
 						<Case value="Third">Selected value: Third</Case>
 						<Default>No values selected</Default>
 					</Switch>
-				</div>
-			</div>
-		</>
-	);
-}
-
-function IfDemo(): JSX.Element {
-	const [state, setState] = React.useState<boolean>(true);
-	return (
-		<>
-			<p className="h2 text-mono">&lt;If /&gt;, &lt;Then /&gt;, &lt;Else /&gt;</p>
-			<div className="card">
-				<label>
-					<input type="checkbox" defaultChecked={state} onChange={() => setState(!state)} />
-				</label>
-				<br />
-				<pre className="card-white">{`<If value={${state}}>\n\t<Then>Checked</Then>\n\t<Else>Unchecked</Else>\n</If>`}</pre>
-				<div className="card-white">
-					<If value={state}>
-						<Then>Checked</Then>
-						<Else>Unchecked</Else>
-					</If>
 				</div>
 			</div>
 		</>
