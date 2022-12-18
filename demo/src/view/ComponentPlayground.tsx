@@ -41,39 +41,28 @@ export default class ComponentPlayground<T extends React.ComponentType<React.Com
 				<div className="card">
 					<table>
 						<tbody>
-							{Object.entries(this.state.props).map(([key, value]) => {
-								const desc: type.PropDescriptor | null = this.props.props[key];
-								const valueType = typeof value;
+							{Object.entries<type.PropDescriptor>(this.__desc).map(([key, desc]) => {
+								const value = this.state.props[key];
 								return (
 									<tr key={key} data-name={key}>
 										<td>{key}</td>
 										<td>
-											{desc ? (
-												desc.type === "boolean" ? (
-													<input type="checkbox" defaultChecked={value} onChange={this.onChange} />
-												) : desc.type === "number" ? (
-													<input type="number" defaultValue={value} onChange={this.onChange} />
-												) : desc.type === "list" ? (
-													<select defaultValue={value} onChange={this.onChange}>
-														{desc.data.map(s => (
-															<option key={s} value={s}>{s}</option>
-														))}
-													</select>
-												) : desc.type === "range" ? (
-													<input type="range" min={desc.min} max={desc.max} step={desc.step} onChange={this.onChange} />
-												) : desc.type === "color" ? (
-													<input type="color" defaultValue={value} onChange={this.onChange} />
-												) : (
-													<input type="text" defaultValue={value} onChange={this.onChange} />
-												)
+											{desc.type === "boolean" ? (
+												<input type="checkbox" defaultChecked={value} onChange={this.onChange} />
+											) : desc.type === "number" ? (
+												<input type="number" defaultValue={value} onChange={this.onChange} />
+											) : desc.type === "list" ? (
+												<select defaultValue={value} onChange={this.onChange}>
+													{desc.data.map(s => (
+														<option key={s} value={s}>{s}</option>
+													))}
+												</select>
+											) : desc.type === "range" ? (
+												<input type="range" defaultValue={value} min={desc.min} max={desc.max} step={desc.step} onChange={this.onChange} />
+											) : desc.type === "color" ? (
+												<input type="color" defaultValue={value} onChange={this.onChange} />
 											) : (
-												valueType === "boolean" ? (
-													<input type="checkbox" defaultChecked={value} onChange={this.onChange} />
-												) : valueType === "number" ? (
-													<input type="number" defaultValue={value} onChange={this.onChange} />
-												) : (
-													<input type="text" defaultValue={value} onChange={this.onChange} />
-												)
+												<input type="text" defaultValue={value} onChange={this.onChange} />
 											)}
 										</td>
 									</tr>
