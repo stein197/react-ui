@@ -8,7 +8,6 @@ import Foreach from "@stein197/react-ui/Foreach";
 import For from "@stein197/react-ui/For";
 import Spinner from "@stein197/react-ui/Spinner";
 import ComponentPlayground from "./src/view/ComponentPlayground";
-import InputType from "./src/InputType";
 
 const countryArray: string[] = [
 	"Afghanistan",
@@ -222,11 +221,11 @@ document.addEventListener("DOMContentLoaded", () => {
 			<ForDemo />
 			<ComponentPlayground name="Spinner" component={Spinner} props={{
 				r: {
-					type: InputType.Number,
+					type: "number",
 					defaultValue: 50
 				},
 				strokeWidth: {
-					type: InputType.Number,
+					type: "number",
 					defaultValue: 1
 				}
 			}} />

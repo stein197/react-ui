@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from "react";
-import InputType from "../InputType";
+import type * as type from "../type";
 
 export default class ComponentPlayground<T extends React.ComponentType<React.ComponentProps<T>>> extends React.Component<Props<T>, State<T>> {
 
@@ -33,19 +33,19 @@ export default class ComponentPlayground<T extends React.ComponentType<React.Com
 										<td>{key}</td>
 										<td>
 											{desc ? (
-												desc.type === InputType.Boolean ? (
+												desc.type === "boolean" ? (
 													<input type="checkbox" defaultChecked={value} onChange={this.onChange} />
-												) : desc.type === InputType.Number ? (
+												) : desc.type === "number" ? (
 													<input type="number" defaultValue={value} onChange={this.onChange} />
-												) : desc.type === InputType.List ? (
+												) : desc.type === "list" ? (
 													<select defaultValue={value} onChange={this.onChange}>
 														{desc.data.map(s => (
 															<option key={s} value={s}>{s}</option>
 														))}
 													</select>
-												) : desc.type === InputType.Range ? (
+												) : desc.type === "range" ? (
 													<input type="range" min={desc.min} max={desc.max} step={desc.step} onChange={this.onChange} />
-												) : desc.type === InputType.Color ? (
+												) : desc.type === "color" ? (
 													<input type="color" defaultValue={value} onChange={this.onChange} />
 												) : (
 													<input type="text" defaultValue={value} onChange={this.onChange} />
@@ -103,7 +103,7 @@ type Props<T extends React.ComponentType<React.ComponentProps<T>>> = {
 	name?: string;
 	title?: string;
 	component: T;
-	props: PropsDescriptor<React.ComponentProps<T>>;
+	props: type.PropDescriptorMap<React.ComponentProps<T>>;
 	renderCode?(name: string, props: React.ComponentProps<T>): string;
 	children?(props: React.ComponentProps<T>): React.ReactNode;
 }
@@ -112,15 +112,3 @@ type State<T extends React.ComponentType<React.ComponentProps<T>>> = {
 	props: React.ComponentProps<T>;
 }
 
-type PropsDescriptor<T> = {
-	[K in keyof T]: PropDescriptor<T[K]>;
-}
-
-type PropDescriptor<T> = {
-	type: InputType;
-	defaultValue?: T;
-	data?: string[];
-	min?: number;
-	max?: number;
-	step?: number;
-}
