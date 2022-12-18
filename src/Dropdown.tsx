@@ -1,6 +1,8 @@
 import * as React from "react";
 import KeyboardCode from "@stein197/util/KeyboardCode";
 
+export = Dropdown;
+
 /**
  * Simple dropdown component. Works the same as plain `<select />` element except that this dropdown can be stylized.
  * The dropdown offers a search functionality by which items can be filtered out. Throws an error if
@@ -16,7 +18,7 @@ import KeyboardCode from "@stein197/util/KeyboardCode";
  * ```
  */
 // TODO: Tests
-export default class Dropdown extends React.PureComponent<Props, State> {
+class Dropdown extends React.PureComponent<Props, State> {
 
 	public static defaultProps: Partial<Props> = {
 		editable: true,

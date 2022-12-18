@@ -1,9 +1,11 @@
 import * as React from "react";
 
+export = Spinner;
+
 /**
  * Animated circle spinner component.
  */
-export default class Spinner extends React.Component<Props> {
+class Spinner extends React.Component<Props> {
 
 	public static readonly defaultProps = {
 		strokeWidth: 1,

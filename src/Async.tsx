@@ -1,10 +1,12 @@
 import * as React from "react";
 import PromiseState from "@stein197/util/PromiseState";
 
+export = Async;
+
 /**
  * Renders its children only when the promise is resolved.
  */
-export default class Async<T, U = any> extends React.PureComponent<Props<T, U>, State<T, U>> {
+class Async<T, U = any> extends React.PureComponent<Props<T, U>, State<T, U>> {
 
 	public constructor(props: Props<T, U>) {
 		super(props);
@@ -30,6 +32,7 @@ export default class Async<T, U = any> extends React.PureComponent<Props<T, U>, 
 		}
 	}
 
+	// @ts-ignore
 	private getDefaultState(): State<T, U> {
 		return {
 			state: PromiseState.Pending,
@@ -38,6 +41,7 @@ export default class Async<T, U = any> extends React.PureComponent<Props<T, U>, 
 		};
 	}
 
+	// @ts-ignore
 	private initPromiseCallbacks(): void {
 		this.props.promise.then(result => this.setState({
 			result,

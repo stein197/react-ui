@@ -1,5 +1,7 @@
 import * as React from "react";
 
+export = Foreach;
+
 /**
  * Replacement for `items.map(...)` construction.
  * @example
@@ -11,7 +13,7 @@ import * as React from "react";
  * </Foreach>
  * ```
  */
-export default class Foreach<T> extends React.Component<Props<T>> {
+class Foreach<T> extends React.Component<Props<T>> {
 
 	public override render(): React.ReactNode {
 		return this.props.data.map((item, index) => this.props.children(item, index));

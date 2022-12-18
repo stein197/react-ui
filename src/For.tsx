@@ -1,5 +1,7 @@
 import * as React from "react";
 
+export = For;
+
 /**
  * For-loop as a react component.
  * @example
@@ -11,7 +13,7 @@ import * as React from "react";
  * </For>
  * ```
  */
-export default class For extends React.Component<Props> {
+class For extends React.Component<Props> {
 
 	public static readonly defaultProps = {
 		from: 0
