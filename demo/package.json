@@ -7,7 +7,7 @@
     "sass": "sass --load-path=node_modules --style=compressed --embed-sources index.scss index.css",
     "sass:watch": "sass --load-path=node_modules --style=compressed --embed-sources index.scss index.css --watch",
     "ts": "microbundle --tsconfig ../tsconfig.dev.json -i index.tsx -o index.js -f iife --no-generateTypes --no-pkg-main --define process.env.NODE_ENV=development --external=none --jsx=React.createElement --jsxFragment=React.Fragment",
-    "ts:watch": "microbundle --tsconfig ../tsconfig.dev.json -i index.tsx -o index.js -f iife --no-generateTypes --no-pkg-main --define process.env.NODE_ENV=development --external=none --jsx=React.createElement --jsxFragment=React.Fragment --watch",
+    "ts:watch": "microbundle --tsconfig ../tsconfig.dev.json -i index.tsx -o index.js -f iife --no-generateTypes --no-pkg-main --define process.env.NODE_ENV=development --external=none --jsx=React.createElement --jsxFragment=React.Fragment --no-compress --watch",
     "build": "npm run sass && npm run ts",
     "server": "http-server -c-1"
   },
