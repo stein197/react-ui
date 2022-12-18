@@ -227,6 +227,25 @@ document.addEventListener("DOMContentLoaded", () => {
 				strokeWidth: {
 					type: "number",
 					defaultValue: 1
+				},
+				strokeColor: {
+					type: "color"
+				},
+				bgStrokeColor: {
+					type: "color",
+					defaultValue: "transparent"
+				},
+				length: {
+					type: "range",
+					min: 0,
+					max: 1,
+					step: .01
+				},
+				duration: {
+					type: "range",
+					min: 0,
+					max: 10,
+					step: .1
 				}
 			}} />
 		</div>
@@ -530,86 +549,6 @@ function ForDemo(): JSX.Element {
 						)}
 					</For>
 				</div>
-			</div>
-		</>
-	);
-}
-
-// TODO: Remove
-function SpinnerDemo(): JSX.Element {
-	const [r, setR] = React.useState(50);
-	const [strokeWidth, setStrokeWidth] = React.useState(Spinner.defaultProps.strokeWidth);
-	const [strokeColor, setStrokeColor] = React.useState(Spinner.defaultProps.strokeColor);
-	const [bgStrokeColor, setBgStrokeColor] = React.useState(Spinner.defaultProps.bgStrokeColor);
-	const [roundLinecap, setRoundLinecap] = React.useState(Spinner.defaultProps.roundLinecap);
-	const [length, setLength] = React.useState(Spinner.defaultProps.length);
-	const [duration, setDuration] = React.useState(Spinner.defaultProps.duration);
-	const [clockwise, setClockwise] = React.useState(Spinner.defaultProps.clockwise);
-	const [className, setClassName] = React.useState("");
-	return (
-		<>
-			<p className="h2 text-mono">&lt;Spinner /&gt;</p>
-			<div className="card">
-				<table>
-					<tbody>
-						<tr>
-							<td>r</td>
-							<td>
-								<input type="number" value={r} onChange={e => setR(+e.target.value)} />
-							</td>
-						</tr>
-						<tr>
-							<td>strokeWidth</td>
-							<td>
-								<input type="number" value={strokeWidth} onChange={e => setStrokeWidth(+e.target.value)} />
-							</td>
-						</tr>
-						<tr>
-							<td>strokeColor</td>
-							<td>
-								<input type="color" value={strokeColor} onChange={e => setStrokeColor(e.target.value)} />
-							</td>
-						</tr>
-						<tr>
-							<td>bgStrokeColor</td>
-							<td>
-								<input type="color" value={bgStrokeColor} onChange={e => setBgStrokeColor(e.target.value)} />
-							</td>
-						</tr>
-						<tr>
-							<td>roundLinecap</td>
-							<td>
-								<input type="checkbox" checked={roundLinecap} onChange={() => setRoundLinecap(!roundLinecap)} />
-							</td>
-						</tr>
-						<tr>
-							<td>length</td>
-							<td>
-								<input type="range" value={length} min="0" max="1" step="0.01" onChange={e => setLength(+e.target.value)} />
-							</td>
-						</tr>
-						<tr>
-							<td>duration</td>
-							<td>
-								<input type="number" value={duration} onChange={e => setDuration(+e.target.value)} />
-							</td>
-						</tr>
-						<tr>
-							<td>clockwise</td>
-							<td>
-								<input type="checkbox" checked={clockwise} onChange={() => setClockwise(!clockwise)} />
-							</td>
-						</tr>
-						<tr>
-							<td>className</td>
-							<td>
-								<input type="text" value={className} onChange={e => setClassName(e.target.value)} />
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<pre className="card-white">{`<Spinner\n\tr="${r}"\n\tstrokeWidth="${strokeWidth}"\n\tstrokeColor="${strokeColor}"\n\tbgStrokeColor="${bgStrokeColor}"\n\troundLinecap="${roundLinecap}"\n\tlength="${length}"\n\tduration="${duration}"\n\tclockwise="${clockwise}"\n\tclassName="${className}"\n/>`}</pre>
-				<Spinner r={r} strokeWidth={strokeWidth} strokeColor={strokeColor} bgStrokeColor={bgStrokeColor} roundLinecap={roundLinecap} length={length} duration={duration} clockwise={clockwise} className={className} />
 			</div>
 		</>
 	);
