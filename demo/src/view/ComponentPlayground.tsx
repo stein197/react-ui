@@ -26,7 +26,7 @@ export default class ComponentPlayground<T extends React.ComponentType<React.Com
 					<table>
 						<tbody>
 							{Object.entries(this.state.props).map(([key, value]) => {
-								const desc: PropDescriptor<any> | null = this.props.props[key];
+								const desc: type.PropDescriptor | null = this.props.props[key];
 								const valueType = typeof value;
 								return (
 									<tr key={key} data-name={key}>
