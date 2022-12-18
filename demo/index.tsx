@@ -7,6 +7,8 @@ import {If, Then, Else} from "@stein197/react-ui/If";
 import Foreach from "@stein197/react-ui/Foreach";
 import For from "@stein197/react-ui/For";
 import Spinner from "@stein197/react-ui/Spinner";
+import ComponentPlayground from "./src/view/ComponentPlayground";
+import InputType from "./src/InputType";
 
 const countryArray: string[] = [
 	"Afghanistan",
@@ -218,7 +220,16 @@ document.addEventListener("DOMContentLoaded", () => {
 			<IfDemo />
 			<ForeachDemo />
 			<ForDemo />
-			<SpinnerDemo />
+			<ComponentPlayground name="Spinner" component={Spinner} props={{
+				r: {
+					type: InputType.Number,
+					defaultValue: 50
+				},
+				strokeWidth: {
+					type: InputType.Number,
+					defaultValue: 1
+				}
+			}} />
 		</div>
 	);
 });
@@ -525,6 +536,7 @@ function ForDemo(): JSX.Element {
 	);
 }
 
+// TODO: Remove
 function SpinnerDemo(): JSX.Element {
 	const [r, setR] = React.useState(50);
 	const [strokeWidth, setStrokeWidth] = React.useState(Spinner.defaultProps.strokeWidth);
