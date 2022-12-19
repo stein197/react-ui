@@ -213,7 +213,24 @@ document.addEventListener("DOMContentLoaded", () => {
 	root.render(
 		<div className="container">
 			<h1 className="text-center">Demos</h1>
-			<DropdownDemo />
+			<ComponentPlayground name="Dropdown" component={Dropdown} props={{
+				data: {
+					type: "any",
+					defaultValue: countryArray
+				},
+				name: {
+					type: "string"
+				},
+				placeholder: {
+					type: "string"
+				},
+				defaultValue: {
+					type: "string"
+				},
+				className: {
+					type: "string"
+				}
+			}} />
 			<AsyncDemo />
 			<ComponentPlayground name="Switch" component={Switch} props={{
 				value: {
@@ -292,74 +309,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		</div>
 	);
 });
-
-function DropdownDemo(): JSX.Element {
-	const [name, setName] = React.useState<string>("country");
-	const [enabled, setEnabled] = React.useState<boolean>(true);
-	const [required, setRequired] = React.useState<boolean>(false);
-	const [editable, setEditable] = React.useState<boolean>(true);
-	const [placeholder, setPlaceholder] = React.useState<string>("Select a country");
-	const [defaultValue, setDefaultValue] = React.useState<string>(countryArray[0]);
-	const [className, setClassName] = React.useState<string>("dropdown-country");
-	const [eventValue, setEventValue] = React.useState<{value?: string; state?: string}>({});
-	const onChange = React.useCallback((value: string, state: string): void => setEventValue({value, state}), []);
-
-	return (
-		<>
-			<p className="h2 text-mono">&lt;Dropdown /&gt;</p>
-			<div className="card">
-				<table>
-					<tbody>
-						<tr>
-							<td>name</td>
-							<td>
-								<input type="text" value={name} onInput={e => setName((e.target as HTMLInputElement).value)} />
-							</td>
-						</tr>
-						<tr>
-							<td>enabled</td>
-							<td>
-								<input type="checkbox" checked={enabled} onChange={() => setEnabled(!enabled)} />
-							</td>
-						</tr>
-						<tr>
-							<td>required</td>
-							<td>
-								<input type="checkbox" checked={required} onChange={() => setRequired(!required)} />
-							</td>
-						</tr>
-						<tr>
-							<td>editable</td>
-							<td>
-								<input type="checkbox" checked={editable} onChange={() => setEditable(!editable)} />
-							</td>
-						</tr>
-						<tr>
-							<td>placeholder</td>
-							<td>
-								<input type="text" value={placeholder} onInput={e => setPlaceholder((e.target as HTMLInputElement).value)} />
-							</td>
-						</tr>
-						<tr>
-							<td>defaultValue</td>
-							<td>
-								<input type="text" value={defaultValue} onInput={e => setDefaultValue((e.target as HTMLInputElement).value)} />
-							</td>
-						</tr>
-						<tr>
-							<td>className</td>
-							<td>
-								<input type="text" value={className} onInput={e => setClassName((e.target as HTMLInputElement).value)} />
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<pre className="card-white">{JSON.stringify(eventValue, undefined, "\t")}</pre>
-				<Dropdown data={countryArray} name={name} enabled={enabled} required={required} editable={editable} placeholder={placeholder} defaultValue={defaultValue} className={className} onChange={onChange} />
-			</div>
-		</>
-	);
-}
 
 function AsyncDemo(): JSX.Element {
 	const [promiseTimeout, setPromiseTimeout] = React.useState<number>(1000);
