@@ -250,7 +250,16 @@ document.addEventListener("DOMContentLoaded", () => {
 				)}
 			</ComponentPlayground>
 			<ForeachDemo />
-			<ForDemo />
+			<ComponentPlayground name="For" component={For} props={{
+				children: {
+					type: "any",
+					defaultValue: n => <p>{n}</p>
+				},
+				to: {
+					type: "number",
+					defaultValue: 10
+				}
+			}} renderCode={(name, props) => `<${name} from="${props.from}" to="${props.to}">\n\t{i => (\n\t\t<p>{i}</p>\n\t)}\n</${name}>`} />
 			<ComponentPlayground name="Spinner" component={Spinner} props={{
 				r: {
 					type: "number",
@@ -482,42 +491,6 @@ function ForeachDemo(): JSX.Element {
 							<p key={index}>item: {item}, index: {index}</p>
 						)}
 					</Foreach>
-				</div>
-			</div>
-		</>
-	);
-}
-
-function ForDemo(): JSX.Element {
-	const [from, setFrom] = React.useState<number>(0);
-	const [to, setTo] = React.useState<number>(10);
-	return (
-		<>
-			<p className="h2 text-mono">&lt;For /&gt;</p>
-			<div className="card">
-				<table>
-					<tbody>
-						<tr>
-							<td>From</td>
-							<td>
-								<input type="number" value={from} onChange={e => setFrom(+e.target.value)} />
-							</td>
-						</tr>
-						<tr>
-							<td>To</td>
-							<td>
-								<input type="number" value={to} onChange={e => setTo(+e.target.value)} />
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<pre className="card-white">{`<For from="${from}" to="${to}">\n\t{i => (\n\t\t<p>{i}</p>\n\t)}\n</For>`}</pre>
-				<div className="card-white">
-					<For from={from} to={to}>
-						{i => (
-							<p key={i}>{i}</p>
-						)}
-					</For>
 				</div>
 			</div>
 		</>

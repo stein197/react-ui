@@ -60,9 +60,9 @@ export default class ComponentPlayground<T extends React.ComponentType<React.Com
 												<input type="range" defaultValue={value} min={desc.min} max={desc.max} step={desc.step} onChange={this.onChange} />
 											) : desc.type === "color" ? (
 												<input type="color" defaultValue={value} onChange={this.onChange} />
-											) : (
+											) : desc.type === "string" ? (
 												<input type="text" defaultValue={value} onChange={this.onChange} />
-											)}
+											) : ""}
 										</td>
 									</tr>
 								);

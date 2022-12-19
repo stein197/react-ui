@@ -1,10 +1,10 @@
-export type InputType = "boolean" | "number" | "string" | "list" | "range" | "color";
+export type InputType = "boolean" | "number" | "string" | "list" | "range" | "color" | "any";
 
 export type PropDescriptorMap<T> = {
 	[K in keyof T]: PropDescriptor
 }
 
-export type PropDescriptor = BooleanPropDescriptor | NumberPropDescriptor | StringPropDescriptor | ListPropDescriptor | RangePropDescriptor
+export type PropDescriptor = BooleanPropDescriptor | NumberPropDescriptor | StringPropDescriptor | ListPropDescriptor | RangePropDescriptor | AnyPropDescriptor;
 
 type BooleanPropDescriptor = {
 	type: "boolean";
@@ -33,4 +33,10 @@ type RangePropDescriptor = {
 	min: number;
 	max: number;
 	step: number;
+}
+
+type AnyPropDescriptor = {
+	type: "any";
+	defaultValue?: any;
+	[k: string]: any;
 }
