@@ -136,15 +136,17 @@ Animated circle spinner component
 ```
 
 #### options
-| Name          | Type                                 | Description                                       |
-|---------------|--------------------------------------|---------------------------------------------------|
-| `r`           | `number`                             | Radius of the circle                              |
-| `strokeWidth` | `number`                             | Width of the circle's stroke                      |
-| `strokeColor` | `string`                             | Color of the circle's stroke                      |
-| `length`      | `number`                             | Length of the segment. Accepts values from 0 to 1 |
-| `duration`    | `number`                             | Duration of one loop of animation in seconds      |
-| `direction`   | `"clockwise" \| "counter-clockwise"` | Direction in which to spin the circle             |
-| `className`   | `string`                             | Additional CSS classname                          |
+| Name            | Type                                 | Description                                       |
+|-----------------|--------------------------------------|---------------------------------------------------|
+| `r`             | `number`                             | Radius of the circle                              |
+| `strokeWidth`   | `number`                             | Width of the circle's stroke                      |
+| `strokeColor`   | `string`                             | Color of the circle's stroke                      |
+| `bgStrokeColor` | `string`                             | Color of the background ring stroke               |
+| `roundLinecap`  | `boolean`                            | Makes linecaps round for circle                   |
+| `length`        | `number`                             | Length of the segment. Accepts values from 0 to 1 |
+| `duration`      | `number`                             | Duration of one loop of animation in seconds      |
+| `clockwise`     | `boolean`                            | Direction in which to spin the circle             |
+| `className`     | `string`                             | Additional CSS classname                          |
 
 > NOTE: More detailed documentation can be found in TSDoc blocks in source code.
 
