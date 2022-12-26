@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as React from "react";
 import * as mocha from "mocha";
-import Foreach from "../src/Foreach";
 import Sandbox from "./Sandbox";
+import Foreach = require("../src/Foreach");
 
 mocha.describe("<Foreach />", () => {
 	const sandbox = new Sandbox();

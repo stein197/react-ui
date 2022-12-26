@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as React from "react";
 import * as mocha from "mocha";
-import For from "../src/For";
 import Sandbox from "./Sandbox";
+import For = require("../src/For");
 
 mocha.describe("<For />", () => {
 	const sandbox = new Sandbox();

@@ -1,8 +1,8 @@
 import * as assert from "assert";
 import * as React from "react";
 import * as mocha from "mocha";
-import Async from "../src/Async";
 import Sandbox from "./Sandbox";
+import Async = require("../src/Async");
 
 mocha.describe("<Async />", () => {
 	const sandbox = new Sandbox();
