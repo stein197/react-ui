@@ -2,7 +2,6 @@ import * as React from "react";
 import PromiseState from "@stein197/util/PromiseState";
 import type * as type from "./type";
 
-// TODO: Tests
 /**
  * React hook for promise.
  * @param promise Promise to depend on.
