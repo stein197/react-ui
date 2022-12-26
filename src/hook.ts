@@ -112,6 +112,19 @@ export function usePrev<T>(value: T): T {
  *                 value will be reset to opposite boundary (for example: `min` is 0, `max` is 10 and the value is `10`.
  *                 Incrementing the value by 1 will set it to 0). Otherwise does nothing. `false` by default.
  * @returns The current value and the callback to manage the value.
+ * @example
+ * ```tsx
+ * function Component() {
+ * 	const {value, increment} = useCounter(0, 0, 255, false);
+ * 	return (
+ * 		<div>
+ * 			<button onClick={() => increment(-1)}>-</button>
+ * 			<input type="text" value={value} />
+ * 			<button onClick={() => increment(1)}>+</button>
+ * 		</div>
+ * 	);
+ * }
+ * ```
  */
 export function useCounter(initial: number, min: number = -Infinity, max: number = Infinity, overflow: boolean = false): type.UseCounter {
 	const [value, setValue] = React.useState(initial);
