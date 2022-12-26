@@ -1,12 +1,12 @@
+import "mocha";
 import * as assert from "assert";
 import * as React from "react";
-import * as mocha from "mocha";
 import {Switch, Case, Default} from "../src/Switch";
 import Sandbox from "./Sandbox";
 
-mocha.describe("<Switch />", () => {
+describe("<Switch />", () => {
 	const sandbox = new Sandbox();
-	mocha.it("Should return the matched case", () => {
+	it("Should return the matched case", () => {
 		sandbox.render(
 			<Switch value="2">
 				<Case value="1">First</Case>
@@ -18,7 +18,7 @@ mocha.describe("<Switch />", () => {
 		);
 		assert.equal(sandbox.container.textContent, "Second");
 	});
-	mocha.it("Should return the first matched case when there are more than one equal cases", () => {
+	it("Should return the first matched case when there are more than one equal cases", () => {
 		sandbox.render(
 			<Switch value="2">
 				<Case value="1">First</Case>
@@ -30,7 +30,7 @@ mocha.describe("<Switch />", () => {
 		);
 		assert.equal(sandbox.container.textContent, "Second");
 	});
-	mocha.it("Should return nothing when there were no matches and there is no default clause", () => {
+	it("Should return nothing when there were no matches and there is no default clause", () => {
 		sandbox.render(
 			<Switch value="0">
 				<Case value="1">First</Case>
@@ -41,7 +41,7 @@ mocha.describe("<Switch />", () => {
 		);
 		assert.equal(sandbox.container.textContent, "");
 	});
-	mocha.it("Should return default clause when there were no matches and there is a default clause", () => {
+	it("Should return default clause when there were no matches and there is a default clause", () => {
 		sandbox.render(
 			<Switch value="0">
 				<Case value="1">First</Case>

@@ -1,8 +1,8 @@
+import "mocha";
 import React from "react";
 import {Root, createRoot} from "react-dom/client";
 import {act} from "react-dom/test-utils";
 import * as jsdom from "jsdom";
-import * as mocha from "mocha";
 
 export default class Sandbox {
 
@@ -20,7 +20,7 @@ export default class Sandbox {
 	public constructor() {
 		const oldWindow = global.window;
 		const oldDocument = global.document;
-		mocha.before(() => {
+		before(() => {
 			global.IS_REACT_ACT_ENVIRONMENT = true
 			const dom = new jsdom.JSDOM("", {
 				url: "http://localhost"
@@ -31,7 +31,7 @@ export default class Sandbox {
 			this.__container = document.createElement("div");
 			document.body.appendChild(this.__container);
 		});
-		mocha.after(() => {
+		after(() => {
 			document.body.removeChild(this.__container!);
 			delete this.__container;
 			delete this.__root;
@@ -39,8 +39,8 @@ export default class Sandbox {
 			global.document = oldDocument;
 			delete global.IS_REACT_ACT_ENVIRONMENT;
 		});
-		mocha.beforeEach(() => act(() => this.__root = createRoot(this.__container!)));
-		mocha.afterEach(() => act(() => this.__root!.unmount()));
+		beforeEach(() => act(() => this.__root = createRoot(this.__container!)));
+		afterEach(() => act(() => this.__root!.unmount()));
 	}
 
 	public render(node: React.ReactNode): void {

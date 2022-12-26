@@ -1,12 +1,12 @@
+import "mocha";
 import * as assert from "assert";
 import * as React from "react";
-import * as mocha from "mocha";
 import Sandbox from "./Sandbox";
 import Foreach = require("../src/Foreach");
 
-mocha.describe("<Foreach />", () => {
+describe("<Foreach />", () => {
 	const sandbox = new Sandbox();
-	mocha.it("Should render nothing when an array is empty", () => {
+	it("Should render nothing when an array is empty", () => {
 		sandbox.render(
 			<Foreach data={[]}>
 				{() => (
@@ -16,7 +16,7 @@ mocha.describe("<Foreach />", () => {
 		);
 		assert.equal(sandbox.container.innerHTML, "");
 	});
-	mocha.it("Should pass an item and an index to a callback function", () => {
+	it("Should pass an item and an index to a callback function", () => {
 		const items: string[] = [];
 		const indices: number[] = [];
 		sandbox.render(
@@ -31,7 +31,7 @@ mocha.describe("<Foreach />", () => {
 		assert.deepStrictEqual(items, ["a", "b", "c"]);
 		assert.deepStrictEqual(indices, [0, 1, 2]);
 	});
-	mocha.it("Should render an expected result", () => {
+	it("Should render an expected result", () => {
 		sandbox.render(
 			<Foreach data={["a", "b", "c"]}>
 				{(item, i) => (

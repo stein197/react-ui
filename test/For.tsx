@@ -1,12 +1,12 @@
+import "mocha";
 import * as assert from "assert";
 import * as React from "react";
-import * as mocha from "mocha";
 import Sandbox from "./Sandbox";
 import For = require("../src/For");
 
-mocha.describe("<For />", () => {
+describe("<For />", () => {
 	const sandbox = new Sandbox();
-	mocha.it("Should render nothing when the loop is empty", () => {
+	it("Should render nothing when the loop is empty", () => {
 		sandbox.render(
 			<For to={0}>
 				{i => (
@@ -16,7 +16,7 @@ mocha.describe("<For />", () => {
 		);
 		assert.equal(sandbox.container.innerHTML, "");
 	});
-	mocha.it("Should render nothing when \"from\" and \"to\" are equal", () => {
+	it("Should render nothing when \"from\" and \"to\" are equal", () => {
 		sandbox.render(
 			<For from={5} to={5}>
 				{i => (
@@ -26,7 +26,7 @@ mocha.describe("<For />", () => {
 		);
 		assert.equal(sandbox.container.innerHTML, "");
 	});
-	mocha.it("Should start counting from 0 when \"from\" is not provided", () => {
+	it("Should start counting from 0 when \"from\" is not provided", () => {
 		sandbox.render(
 			<For to={3}>
 				{i => (
@@ -36,7 +36,7 @@ mocha.describe("<For />", () => {
 		);
 		assert.equal(sandbox.container.innerHTML, "0123");
 	});
-	mocha.it("Should throw an error when \"to\" is less than \"from\"", () => {
+	it("Should throw an error when \"to\" is less than \"from\"", () => {
 		assert.throws(() => {
 			sandbox.render(
 				<For to={-3}>
@@ -47,7 +47,7 @@ mocha.describe("<For />", () => {
 			);
 		}, {message: "props.to (-3) is less than props.from (0)"});
 	});
-	mocha.it("Should render correctly when \"from\" is provided", () => {
+	it("Should render correctly when \"from\" is provided", () => {
 		sandbox.render(
 			<For from="3" to="5">
 				{i => (
@@ -57,7 +57,7 @@ mocha.describe("<For />", () => {
 		);
 		assert.equal(sandbox.container.innerHTML, "345");
 	});
-	mocha.it("Should render correctly when \"from\" is less than 0", () => {
+	it("Should render correctly when \"from\" is less than 0", () => {
 		sandbox.render(
 			<For from="-2" to="2">
 				{i => i}
@@ -65,7 +65,7 @@ mocha.describe("<For />", () => {
 		);
 		assert.equal(sandbox.container.innerHTML, "-2-1012");
 	});
-	mocha.it("Should render correctly when \"from\" and \"to\" is less than 0", () => {
+	it("Should render correctly when \"from\" and \"to\" is less than 0", () => {
 		sandbox.render(
 			<For from="-10" to="-8">
 				{i => i}

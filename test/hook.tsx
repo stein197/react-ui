@@ -1,16 +1,16 @@
+import "mocha";
 import * as assert from "assert";
 import * as React from "react";
-import * as mocha from "mocha";
 import * as hook from "../src/hook";
 
 // TODO
-mocha.describe("hook.useAsync()", () => {});
+describe("hook.useAsync()", () => {});
 
 // TODO
-mocha.describe("hook.useToggle()", () => {});
+describe("hook.useToggle()", () => {});
 
 // TODO
-mocha.describe("hook.usePrev()", () => {});
+describe("hook.usePrev()", () => {});
 
 // TODO
-mocha.describe("hook.useCounter()", () => {});
+describe("hook.useCounter()", () => {});
