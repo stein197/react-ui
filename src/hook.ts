@@ -17,7 +17,7 @@ import type * as type from "./type";
  * }
  * ```
  */
-export default function useAsync<T, U = any>(promise: Promise<T>): type.UseAsync<T, U> {
+export function useAsync<T, U = any>(promise: Promise<T>): type.UseAsync<T, U> {
 	const [state, setState] = React.useState<PromiseState>(PromiseState.Pending);
 	const [value, setValue] = React.useState<T>();
 	const [error, setError] = React.useState<U>();
