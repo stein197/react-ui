@@ -6,3 +6,8 @@ export type UseAsync<T, U> = {
 	error?: U;
 	run?(): void;
 }
+
+export type UseToggle = {
+	state: boolean;
+	toggle(): void;
+}

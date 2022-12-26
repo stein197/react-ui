@@ -68,3 +68,26 @@ export function useAsync<T, U = any>(a: Promise<T> | (() => Promise<T>), run: bo
 		result.run = runCallback;
 	return result;
 }
+
+/**
+ * Returns toggleable state.
+ * @param init Initial value.
+ * @returns Current value and a function to toggle it.
+ * @example
+ * ```tsx
+ * function Component() {
+ * 	const {state, toggle} = useToggle(true);
+ * 	return (
+ * 		<>
+ * 			<div>Toggled: {state}</div>
+ * 			<button onClick={toggle}>Toggle</button>
+ * 		</>
+ * 	);
+ * }
+ * ```
+ */
+export function useToggle(init: boolean): type.UseToggle {
+	const [state, setState] = React.useState(init);
+	const toggle = React.useCallback(() => setState(!state), []);
+	return {state, toggle};
+}
