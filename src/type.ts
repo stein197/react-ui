@@ -35,3 +35,17 @@ export type UseToggle = {
 	 */
 	toggle(): void;
 }
+
+export type UseCounter = {
+
+	/**
+	 * Current counter value.
+	 */
+	value: number;
+
+	/**
+	 * Increments or decrements the value.
+	 * @param value Value by which to increment/decrement. Use negative numbers to decrease the value.
+	 */
+	increment(value: number): void;
+}

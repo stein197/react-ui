@@ -102,3 +102,33 @@ export function usePrev<T>(value: T): T {
 	React.useEffect(() => void (ref.current = value), [value]);
 	return ref.current;
 }
+
+/**
+ * Counter hook.
+ * @param initial Initial counter value.
+ * @param min Minial value. `-Infinity` by default.
+ * @param max Maximum value. `Infinity` by default.
+ * @param overflow Should counter overflow or not. If `true` and counter reached the min or max threshold, then the
+ *                 value will be reset to opposite boundary (for example: `min` is 0, `max` is 10 and the value is `10`.
+ *                 Incrementing the value by 1 will set it to 0). Otherwise does nothing. `false` by default.
+ * @returns The current value and the callback to manage the value.
+ */
+export function useCounter(initial: number, min: number = -Infinity, max: number = Infinity, overflow: boolean = false): type.UseCounter {
+	const [value, setValue] = React.useState(initial);
+	const increment = React.useCallback((step: number): void => {
+		let newValue = value + step;
+		const lessThanMin = newValue < min;
+		const greaterThanMax = max < newValue;
+		if (!overflow && (lessThanMin || greaterThanMax))
+			return;
+		if (lessThanMin) {
+			const rest = min - newValue - 1;
+			newValue = max - rest;
+		} else if (greaterThanMax) {
+			const rest = newValue - max - 1;
+			newValue = min + rest;
+		}
+		setValue(newValue);
+	}, []);
+	return {value, increment};
+}
