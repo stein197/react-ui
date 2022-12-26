@@ -91,3 +91,14 @@ export function useToggle(init: boolean): type.UseToggle {
 	const toggle = React.useCallback(() => setState(!state), []);
 	return {state, toggle};
 }
+
+/**
+ * Utilizes the value of a previous render.
+ * @param value Which value to observe.
+ * @returns Value from previous render.
+ */
+export function usePrev<T>(value: T): T {
+	const ref = React.useRef<T>(value);
+	React.useEffect(() => void (ref.current = value), [value]);
+	return ref.current;
+}
