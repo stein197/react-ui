@@ -48,10 +48,12 @@ export default class Sandbox {
 	}
 
 	public async renderAsync<T>(node: React.ReactNode, promise: Promise<T>): Promise<void> {
-		this.render(node);
-		try {
-			await promise;
-		} catch {}
-		await new Promise(rs => setTimeout(rs, 0));
+		await act(async () => {
+			this.render(node);
+			try {
+				await promise;
+			} catch {}
+			await new Promise(rs => setTimeout(rs, 0));
+		});
 	}
 }
