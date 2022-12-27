@@ -5,6 +5,7 @@
  * // Will render the contents of Else component
  * <If value={false}>
  * 	<Then>yes</Then>
+ * 	<ElseIf value={true}>maybe</ElseIf>
  * 	<Else>no</Else>
  * </If>
  * ```
@@ -45,7 +46,6 @@ export function Else(props: EmptyProps): JSX.Element {
 	return props.children;
 }
 
-// TODO: Tests
 /**
  * `else if` clause.
  */

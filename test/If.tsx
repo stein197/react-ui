@@ -1,7 +1,7 @@
 import "mocha";
 import * as assert from "assert";
 import * as React from "react";
-import {If, Then, Else} from "../src/If";
+import {If, Then, ElseIf, Else} from "../src/If";
 import Sandbox from "./Sandbox";
 
 describe("<If />", () => {
@@ -69,5 +69,15 @@ describe("<If />", () => {
 			</If>
 		);
 		assert.equal(sandbox.container.textContent, "no");
+	});
+	it("Should return <ElseIf /> clause if the value matches it", () => {
+		sandbox.render(
+			<If value={false}>
+				<Then>yes</Then>
+				<ElseIf value={true}>maybe</ElseIf>
+				<Else>no</Else>
+			</If>
+		);
+		assert.equal(sandbox.container.textContent, "maybe");
 	});
 });
