@@ -20,6 +20,7 @@ export function Switch(props: SwitchProps): JSX.Element {
 	return children.find(child => child.type === Case && (Array.isArray(child.props?.value) ? child.props.value.indexOf(value => object.strictlyEqual(value, props.value)) >= 0 : object.strictlyEqual(child.props?.value, props.value))) ?? children.find(child => child.type === Default);
 }
 
+// TODO: Test multiple case values.
 /**
  * The case-clause. Returns the content only when it's the first matched case.
  */
