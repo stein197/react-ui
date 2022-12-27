@@ -1,7 +1,7 @@
 import "mocha";
 import React from "react";
 import {Root, createRoot} from "react-dom/client";
-import {act} from "react-dom/test-utils";
+import {act, Simulate} from "react-dom/test-utils";
 import * as jsdom from "jsdom";
 
 export default class Sandbox {
@@ -55,5 +55,9 @@ export default class Sandbox {
 			} catch {}
 			await new Promise(rs => setTimeout(rs, 0));
 		});
+	}
+
+	public dispatchEvent(selector: string, event: keyof typeof Simulate): void {
+		act(() => Simulate[event](this.container.querySelector(selector)!));
 	}
 }

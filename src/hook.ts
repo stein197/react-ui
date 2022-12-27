@@ -87,7 +87,7 @@ export function useAsync<T, U = any>(a: Promise<T> | (() => Promise<T>), run: bo
  */
 export function useToggle(init: boolean): type.UseToggle {
 	const [state, setState] = React.useState(init);
-	const toggle = React.useCallback(() => setState(!state), []);
+	const toggle = React.useCallback(() => setState(state => !state), []);
 	return [state, toggle];
 }
 
