@@ -57,7 +57,11 @@ export default class Sandbox {
 		});
 	}
 
-	public dispatchEvent(selector: string, event: keyof typeof Simulate): void {
-		act(() => Simulate[event](this.container.querySelector(selector)!));
+	public click(selector: string): Promise<void> {
+		return this.dispatchEvent(selector, "click");
+	}
+
+	public dispatchEvent(selector: string, event: keyof typeof Simulate): Promise<void> {
+		return act(() => Simulate[event](this.container.querySelector(selector)!));
 	}
 }

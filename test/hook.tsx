@@ -25,9 +25,9 @@ describe("hook.useToggle()", () => {
 	});
 	it("Should correctly render after toggling", () => {
 		sandbox.render(<TestComponent />);
-		sandbox.dispatchEvent("button", "click");
+		sandbox.click("button");
 		assert.equal(sandbox.container.querySelector("p")!.textContent, "yes");
-		sandbox.dispatchEvent("button", "click");
+		sandbox.click("button");
 		assert.equal(sandbox.container.querySelector("p")!.textContent, "no");
 	});
 });
