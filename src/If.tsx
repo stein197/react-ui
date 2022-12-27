@@ -21,6 +21,10 @@ export function If(props: IfProps): JSX.Element {
 	const thenClause = children.find(child => child.type === Then);
 	if (props.value && thenClause)
 		return thenClause;
+	const elseIfClauseArray = children.filter(child => child.type === ElseIf);
+	for (const elseIfClause of elseIfClauseArray)
+		if (elseIfClause.props.value)
+			return elseIfClause;
 	const elseClause = children.find(child => child.type === Else);
 	if (!props.value && elseClause)
 		return elseClause;
@@ -41,7 +45,16 @@ export function Else(props: EmptyProps): JSX.Element {
 	return props.children;
 }
 
+// TODO: Tests
+/**
+ * `else if` clause.
+ */
+export function ElseIf(props: IfProps): JSX.Element {
+	return props.children;
+}
+
 type IfProps = {
+
 	/**
 	 * Value to test.
 	 */
