@@ -17,7 +17,7 @@ import * as object from "@stein197/util/object";
  */
 export function Switch(props: SwitchProps): JSX.Element {
 	const children = props.children == null ? [] : Array.isArray(props.children) ? props.children : [props.children];
-	return children.find(child => child.type === Case && (Array.isArray(child.props?.value) ? child.props.value.indexOf(value => object.strictlyEqual(value, props.value)) >= 0 : object.strictlyEqual(child.props?.value, props.value))) ?? children.find(child => child.type === Default);
+	return children.find(child => child.type === Case && (Array.isArray(child.props?.value) ? child.props.value.findIndex(value => object.strictlyEqual(value, props.value)) >= 0 : object.strictlyEqual(child.props?.value, props.value))) ?? children.find(child => child.type === Default);
 }
 
 // TODO: Test multiple case values.

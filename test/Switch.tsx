@@ -30,6 +30,19 @@ describe("<Switch />", () => {
 		);
 		assert.equal(sandbox.container.textContent, "Second");
 	});
+	it("Should return the case with multiple choises when the value matches at least one of them", () => {
+		sandbox.render(
+			<Switch value="4">
+				<Case value="1">First</Case>
+				<Case value="2">Second</Case>
+				<Case value="3">Third</Case>
+				<Case value={["4", "5"]}>Other</Case>
+				<Default>None</Default>
+				<div>garbage</div>
+			</Switch>
+		);
+		assert.equal(sandbox.container.textContent, "Other");
+	});
 	it("Should return nothing when there were no matches and there is no default clause", () => {
 		sandbox.render(
 			<Switch value="0">
