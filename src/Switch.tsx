@@ -1,3 +1,5 @@
+import * as object from "@stein197/util/object";
+
 // TODO: Maybe we should use React.Children
 /**
  * Component for implementing switch-case-default clause but in JSX. The usage is the same as the usage of ordinary
@@ -8,13 +10,14 @@
  * 	<Case value="1">First</Case>
  * 	<Case value="2">Second</Case>
  * 	<Case value="3">Third</Case>
+ * 	<Case value={["4", "5"]}></Case>
  * 	<Default>None</Default>
  * </Switch>
  * ```
  */
 export function Switch(props: SwitchProps): JSX.Element {
 	const children = props.children == null ? [] : Array.isArray(props.children) ? props.children : [props.children];
-	return children.find(child => child.type === Case && child.props?.value === props.value) ?? children.find(child => child.type === Default);
+	return children.find(child => child.type === Case && (Array.isArray(child.props?.value) ? child.props.value.indexOf(value => object.strictlyEqual(value, props.value)) >= 0 : object.strictlyEqual(child.props?.value, props.value))) ?? children.find(child => child.type === Default);
 }
 
 /**
