@@ -9,7 +9,7 @@ import type * as type from "./type";
  * @example
  * ```tsx
  * function Component() {
- * 	const {state, value, error} = useAsync(new Promise(resolve => setTimeout(resolve, 1000)));
+ * 	const [state, value, error] = useAsync(new Promise(resolve => setTimeout(resolve, 1000)));
  * 	return (
  * 		<div>State: {state}, Value: {value}</div>
  * 	);
@@ -27,7 +27,7 @@ export function useAsync<T, U = any>(promise: Promise<T>): type.UseAsync<T, U>;
  * @example
  * ```tsx
  * function Component() {
- * 	const {state, value, error, run} = useAsync(() => new Promise(resolve => setTimeout(resolve, 1000)), false);
+ * 	const [state, value, error, run] = useAsync(() => new Promise(resolve => setTimeout(resolve, 1000)), false);
  * 	React.useEffect(() => run(), []);
  * 	return (
  * 		<div>State: {state}, Value: {value}</div>
@@ -62,9 +62,9 @@ export function useAsync<T, U = any>(a: Promise<T> | (() => Promise<T>), run: bo
 			setError(error);
 		});
 	}, [a]);
-	const result: type.UseAsync<T, U> = {state, value, error};
+	const result: type.UseAsync<T, U> = [state, value, error];
 	if (!isPromise && !run)
-		result.run = runCallback;
+		result.push(runCallback);
 	return result;
 }
 
@@ -88,7 +88,7 @@ export function useAsync<T, U = any>(a: Promise<T> | (() => Promise<T>), run: bo
 export function useToggle(init: boolean): type.UseToggle {
 	const [state, setState] = React.useState(init);
 	const toggle = React.useCallback(() => setState(!state), []);
-	return {state, toggle};
+	return [state, toggle];
 }
 
 /**
@@ -142,5 +142,5 @@ export function useCounter(initial: number, min: number = -Infinity, max: number
 		}
 		setValue(newValue);
 	}, []);
-	return {value, increment};
+	return [value, increment];
 }
