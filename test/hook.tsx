@@ -68,3 +68,6 @@ describe("hook.useResize()", () => {});
 
 // TODO
 describe("hook.useFocus()", () => {});
+
+// TODO
+describe("hook.useOnline()", () => {});

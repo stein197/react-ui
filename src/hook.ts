@@ -229,3 +229,31 @@ export function useFocus<T extends Element>(ref: React.RefObject<T>): boolean {
 	}, [ref.current]);
 	return focus;
 }
+
+/**
+ * Fires each time the browser changes its access to the network.
+ * @returns `true` if the browser has access to the network, `false` otherwise.
+ * @example
+ * ```tsx
+ * function Component() {
+ * 	const online = useOnline();
+ * 	return (
+ * 		<p>Online: {online.toString()}</p>
+ * 	);
+ * }
+ * ```
+ */
+export function useOnline(): boolean {
+	const [online, setOnline] = React.useState(globalThis.navigator.onLine);
+	React.useEffect(() => {
+		const onOnline = () => setOnline(true);
+		const onOffline = () => setOnline(false);
+		globalThis.addEventListener("online", onOnline);
+		globalThis.addEventListener("offline", onOffline);
+		return () => {
+			globalThis.removeEventListener("online", onOnline);
+			globalThis.removeEventListener("offline", onOffline);
+		}
+	}, []);
+	return online;
+}
