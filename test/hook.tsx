@@ -20,15 +20,15 @@ describe("hook.useToggle()", () => {
 	}
 	it("Should correctly render initial value", () => {
 		sandbox.render(<TestComponent />);
-		assert.equal(sandbox.container.querySelector("p")!.textContent, "no");
+		assert.equal(sandbox.select("p")!.textContent, "no");
 
 	});
 	it("Should correctly render after toggling", () => {
 		sandbox.render(<TestComponent />);
 		sandbox.click("button");
-		assert.equal(sandbox.container.querySelector("p")!.textContent, "yes");
+		assert.equal(sandbox.select("p")!.textContent, "yes");
 		sandbox.click("button");
-		assert.equal(sandbox.container.querySelector("p")!.textContent, "no");
+		assert.equal(sandbox.select("p")!.textContent, "no");
 	});
 });
 

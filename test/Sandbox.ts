@@ -57,6 +57,16 @@ export default class Sandbox {
 		});
 	}
 
+	public select<K extends keyof HTMLElementTagNameMap>(selectors: K): HTMLElementTagNameMap[K] | null;
+
+	public select<K extends keyof SVGElementTagNameMap>(selectors: K): SVGElementTagNameMap[K] | null;
+
+	public select<E extends Element = Element>(selectors: string): E | null;
+
+	public select<E extends Element = Element>(selector: string): E | null {
+		return this.__container!.querySelector(selector);
+	}
+
 	public click(selector: string, data?: SyntheticEventData): Promise<void> {
 		return this.dispatchEvent(selector, "click", data);
 	}
