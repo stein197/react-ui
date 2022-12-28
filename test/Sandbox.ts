@@ -1,7 +1,7 @@
 import "mocha";
 import React from "react";
 import {Root, createRoot} from "react-dom/client";
-import {act, Simulate} from "react-dom/test-utils";
+import {act, Simulate, SyntheticEventData} from "react-dom/test-utils";
 import * as jsdom from "jsdom";
 
 export default class Sandbox {
@@ -57,11 +57,11 @@ export default class Sandbox {
 		});
 	}
 
-	public click(selector: string): Promise<void> {
-		return this.dispatchEvent(selector, "click");
+	public click(selector: string, data?: SyntheticEventData): Promise<void> {
+		return this.dispatchEvent(selector, "click", data);
 	}
 
-	public dispatchEvent(selector: string, event: keyof typeof Simulate): Promise<void> {
-		return act(() => Simulate[event](this.container.querySelector(selector)!));
+	public dispatchEvent<K extends keyof typeof Simulate>(selector: string, event: K, data?: SyntheticEventData): Promise<void> {
+		return act(() => Simulate[event](this.container.querySelector(selector)!, data));
 	}
 }
