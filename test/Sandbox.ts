@@ -43,13 +43,13 @@ export default class Sandbox {
 		afterEach(() => act(() => this.__root!.unmount()));
 	}
 
-	public render(node: React.ReactNode): void {
-		act(() => this.__root!.render(node));
+	public render(node: React.ReactNode): Promise<void> {
+		return act(() => this.__root!.render(node));
 	}
 
 	public async renderAsync<T>(node: React.ReactNode, promise: Promise<T>): Promise<void> {
 		await act(async () => {
-			this.render(node);
+			await this.render(node);
 			try {
 				await promise;
 			} catch {}
