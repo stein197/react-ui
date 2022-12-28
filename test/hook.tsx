@@ -37,3 +37,6 @@ describe("hook.usePrev()", () => {});
 
 // TODO
 describe("hook.useCounter()", () => {});
+
+// TODO
+describe("hook.useHover()", () => {});

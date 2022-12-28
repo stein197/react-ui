@@ -144,3 +144,36 @@ export function useCounter(initial: number, min: number = -Infinity, max: number
 	}, []);
 	return [value, increment];
 }
+
+/**
+ * Fires any time pointer enters/leaves a target.
+ * @param ref Ref to an object to observe.
+ * @returns Ref that should be assigned to target element and hovered flag.
+ * @example
+ * ```tsx
+ * function Component() {
+ * 	const ref = React.useRef();
+ * 	const hovered = useHover(ref);
+ * 	return (
+ * 		<p ref={ref}>Hovered: {hovered.toString()}</p>
+ * 	);
+ * }
+ * ```
+ */
+export function useHover<T extends Element = Element>(ref: React.RefObject<T>): boolean {
+	const [hovered, setHovered] = React.useState(false);
+	React.useEffect(() => {
+		const element = ref.current;
+		if (!element)
+			return;
+		const onPointerEnter = () => setHovered(true);
+		const onPointerLeave = () => setHovered(false);
+		element.addEventListener("pointerenter", onPointerEnter);
+		element.addEventListener("pointerleave", onPointerLeave);
+		return (): void => {
+			element.removeEventListener("pointerenter", onPointerEnter);
+			element.removeEventListener("pointerleave", onPointerLeave);
+		}
+	}, [ref.current]);
+	return hovered;
+}
