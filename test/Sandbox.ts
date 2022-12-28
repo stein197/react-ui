@@ -3,6 +3,7 @@ import React from "react";
 import {Root, createRoot} from "react-dom/client";
 import {act, Simulate, SyntheticEventData} from "react-dom/test-utils";
 import * as jsdom from "jsdom";
+import * as util from "./util";
 
 export default class Sandbox {
 
@@ -18,16 +19,14 @@ export default class Sandbox {
 	}
 
 	public constructor() {
-		const oldWindow = global.window;
-		const oldDocument = global.document;
 		before(() => {
-			global.IS_REACT_ACT_ENVIRONMENT = true
+			globalThis.IS_REACT_ACT_ENVIRONMENT = true
 			const dom = new jsdom.JSDOM("", {
 				url: "http://localhost"
 			});
 			// @ts-ignore
-			global.window = dom.window;
-			global.document = dom.window.document;
+			util.mock(globalThis, "window", dom.window);
+			util.mock(globalThis, "document", dom.window.document);
 			this.__container = document.createElement("div");
 			document.body.appendChild(this.__container);
 		});
@@ -35,9 +34,9 @@ export default class Sandbox {
 			document.body.removeChild(this.__container!);
 			delete this.__container;
 			delete this.__root;
-			global.window = oldWindow;
-			global.document = oldDocument;
-			delete global.IS_REACT_ACT_ENVIRONMENT;
+			util.unmock(globalThis, "window");
+			util.unmock(globalThis, "document");
+			delete globalThis.IS_REACT_ACT_ENVIRONMENT;
 		});
 		beforeEach(() => act(() => this.__root = createRoot(this.__container!)));
 		afterEach(() => act(() => this.__root!.unmount()));
