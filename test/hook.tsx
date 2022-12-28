@@ -32,8 +32,30 @@ describe("hook.useToggle()", () => {
 	});
 });
 
-// TODO
-describe("hook.usePrev()", () => {});
+describe("hook.usePrev()", () => {
+	const sandbox = new Sandbox();
+	function TestComponent(): JSX.Element {
+		const [value, setValue] = React.useState(0);
+		const prev = hook.usePrev(value);
+		return (
+			<div>
+				<p>prev: {prev}, current: {value}</p>
+				<button onClick={() => setValue(value + 1)}>Toggle</button>
+			</div>
+		);
+	}
+	it("Should correctly render initial value", () => {
+		sandbox.render(<TestComponent />);
+		assert.equal(sandbox.select("p")!.textContent, "prev: 0, current: 0");
+	});
+	it("Should correctly render previous values", () => {
+		sandbox.render(<TestComponent />);
+		sandbox.click("button");
+		assert.equal(sandbox.select("p")!.textContent, "prev: 0, current: 1");
+		sandbox.click("button");
+		assert.equal(sandbox.select("p")!.textContent, "prev: 1, current: 2");
+	});
+});
 
 // TODO
 describe("hook.useCounter()", () => {});
