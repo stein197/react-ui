@@ -206,3 +206,26 @@ export function useResize(): type.Size {
 	}, []);
 	return size;
 }
+
+/**
+ * Fires each time an elements gets a focus.
+ * @param ref Ref to an element.
+ * @returns `true` if the element is focused, `false` otherwise.
+ */
+export function useFocus<T extends Element>(ref: React.RefObject<T>): boolean {
+	const [focus, setFocus] = React.useState(false);
+	React.useEffect(() => {
+		const element = ref.current;
+		if (!element)
+			return;
+		const onFocusIn = () => setFocus(true);
+		const onFocusOut = () => setFocus(false);
+		element.addEventListener("focusin", onFocusIn);
+		element.addEventListener("focusout", onFocusOut);
+		return () => {
+			element.removeEventListener("focusin", onFocusIn);
+			element.removeEventListener("focusout", onFocusOut);
+		}
+	}, [ref.current]);
+	return focus;
+}

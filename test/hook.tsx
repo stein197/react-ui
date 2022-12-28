@@ -65,3 +65,6 @@ describe("hook.useHover()", () => {});
 
 // TODO
 describe("hook.useResize()", () => {});
+
+// TODO
+describe("hook.useFocus()", () => {});
