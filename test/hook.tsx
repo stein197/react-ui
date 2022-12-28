@@ -40,3 +40,6 @@ describe("hook.useCounter()", () => {});
 
 // TODO
 describe("hook.useHover()", () => {});
+
+// TODO
+describe("hook.useResize()", () => {});

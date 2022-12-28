@@ -5,3 +5,8 @@ export type UseAsync<T, U> = [state: PromiseState, value?: T, error?: U, run?: (
 export type UseToggle = [state: boolean, toggle: () => void]
 
 export type UseCounter = [value: number, increment: (value: number) => void]
+
+export type Size = {
+	width: number;
+	height: number;
+}

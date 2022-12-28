@@ -177,3 +177,32 @@ export function useHover<T extends Element = Element>(ref: React.RefObject<T>): 
 	}, [ref.current]);
 	return hovered;
 }
+
+/**
+ * Tracks window resize event and returns the current size of it.
+ * @returns Current size of the window.
+ * @example
+ * ```tsx
+ * function Component() {
+ * 	const size = useResize();
+ * 	return (
+ * 		<p>Size: {JSON.stringify(size)}</p>
+ * 	);
+ * }
+ * ```
+ */
+export function useResize(): type.Size {
+	const [size, setSize] = React.useState({
+		width: globalThis.innerWidth,
+		height: globalThis.innerHeight
+	});
+	React.useEffect(() => {
+		const onResize = () => setSize({
+			width: globalThis.innerWidth,
+			height: globalThis.innerHeight
+		});
+		globalThis.addEventListener("resize", onResize);
+		return () => globalThis.removeEventListener("resize", onResize);
+	}, []);
+	return size;
+}
