@@ -71,6 +71,3 @@ describe("hook.useFocus()", () => {});
 
 // TODO
 describe("hook.useOnline()", () => {});
-
-// TODO
-describe("hook.useEventListener()", () => {});
