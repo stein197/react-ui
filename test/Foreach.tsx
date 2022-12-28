@@ -14,7 +14,7 @@ describe("<Foreach />", () => {
 				)}
 			</Foreach>
 		);
-		assert.equal(sandbox.container.innerHTML, "");
+		assert.equal(sandbox.innerHTML, "");
 	});
 	it("Should pass an item and an index to a callback function", () => {
 		const items: string[] = [];
@@ -39,6 +39,6 @@ describe("<Foreach />", () => {
 				)}
 			</Foreach>
 		);
-		assert.equal(sandbox.container.innerHTML, "<div>item: a, index: 0</div><div>item: b, index: 1</div><div>item: c, index: 2</div>");
+		assert.equal(sandbox.innerHTML, "<div>item: a, index: 0</div><div>item: b, index: 1</div><div>item: c, index: 2</div>");
 	});
 });

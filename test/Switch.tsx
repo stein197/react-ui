@@ -16,7 +16,7 @@ describe("<Switch />", () => {
 				<div>garbage</div>
 			</Switch>
 		);
-		assert.equal(sandbox.container.textContent, "Second");
+		assert.equal(sandbox.textContent, "Second");
 	});
 	it("Should return the first matched case when there are more than one equal cases", () => {
 		sandbox.render(
@@ -28,7 +28,7 @@ describe("<Switch />", () => {
 				<div>garbage</div>
 			</Switch>
 		);
-		assert.equal(sandbox.container.textContent, "Second");
+		assert.equal(sandbox.textContent, "Second");
 	});
 	it("Should return the case with multiple choises when the value matches at least one of them", () => {
 		sandbox.render(
@@ -41,7 +41,7 @@ describe("<Switch />", () => {
 				<div>garbage</div>
 			</Switch>
 		);
-		assert.equal(sandbox.container.textContent, "Other");
+		assert.equal(sandbox.textContent, "Other");
 	});
 	it("Should return nothing when there were no matches and there is no default clause", () => {
 		sandbox.render(
@@ -52,7 +52,7 @@ describe("<Switch />", () => {
 				<div>garbage</div>
 			</Switch>
 		);
-		assert.equal(sandbox.container.textContent, "");
+		assert.equal(sandbox.textContent, "");
 	});
 	it("Should return default clause when there were no matches and there is a default clause", () => {
 		sandbox.render(
@@ -64,6 +64,6 @@ describe("<Switch />", () => {
 				<div>garbage</div>
 			</Switch>
 		);
-		assert.equal(sandbox.container.textContent, "None");
+		assert.equal(sandbox.textContent, "None");
 	});
 });

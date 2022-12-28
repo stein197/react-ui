@@ -6,16 +6,16 @@ import * as jsdom from "jsdom";
 
 export default class Sandbox {
 
-	public get container(): HTMLDivElement {
-		return this.__container!;
-	}
-
-	public get root(): Root {
-		return this.__root!;
-	}
-
 	private __container?: HTMLDivElement;
 	private __root?: Root;
+
+	public get textContent(): string | null {
+		return this.__container?.textContent ?? null;
+	}
+
+	public get innerHTML(): string | null {
+		return this.__container?.innerHTML ?? null;
+	}
 
 	public constructor() {
 		const oldWindow = global.window;
@@ -44,7 +44,7 @@ export default class Sandbox {
 	}
 
 	public render(node: React.ReactNode): void {
-		act(() => this.root.render(node));
+		act(() => this.__root!.render(node));
 	}
 
 	public async renderAsync<T>(node: React.ReactNode, promise: Promise<T>): Promise<void> {
@@ -72,6 +72,6 @@ export default class Sandbox {
 	}
 
 	public dispatchEvent<K extends keyof typeof Simulate>(selector: string, event: K, data?: SyntheticEventData): Promise<void> {
-		return act(() => Simulate[event](this.container.querySelector(selector)!, data));
+		return act(() => Simulate[event](this.__container!.querySelector(selector)!, data));
 	}
 }

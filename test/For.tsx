@@ -14,7 +14,7 @@ describe("<For />", () => {
 				)}
 			</For>
 		);
-		assert.equal(sandbox.container.innerHTML, "");
+		assert.equal(sandbox.innerHTML, "");
 	});
 	it("Should render nothing when \"from\" and \"to\" are equal", () => {
 		sandbox.render(
@@ -24,7 +24,7 @@ describe("<For />", () => {
 				)}
 			</For>
 		);
-		assert.equal(sandbox.container.innerHTML, "");
+		assert.equal(sandbox.innerHTML, "");
 	});
 	it("Should start counting from 0 when \"from\" is not provided", () => {
 		sandbox.render(
@@ -34,7 +34,7 @@ describe("<For />", () => {
 				)}
 			</For>
 		);
-		assert.equal(sandbox.container.innerHTML, "0123");
+		assert.equal(sandbox.innerHTML, "0123");
 	});
 	it("Should throw an error when \"to\" is less than \"from\"", () => {
 		assert.throws(() => {
@@ -55,7 +55,7 @@ describe("<For />", () => {
 				)}
 			</For>
 		);
-		assert.equal(sandbox.container.innerHTML, "345");
+		assert.equal(sandbox.innerHTML, "345");
 	});
 	it("Should render correctly when \"from\" is less than 0", () => {
 		sandbox.render(
@@ -63,7 +63,7 @@ describe("<For />", () => {
 				{i => i}
 			</For>
 		);
-		assert.equal(sandbox.container.innerHTML, "-2-1012");
+		assert.equal(sandbox.innerHTML, "-2-1012");
 	});
 	it("Should render correctly when \"from\" and \"to\" is less than 0", () => {
 		sandbox.render(
@@ -71,6 +71,6 @@ describe("<For />", () => {
 				{i => i}
 			</For>
 		);
-		assert.equal(sandbox.container.innerHTML, "-10-9-8");
+		assert.equal(sandbox.innerHTML, "-10-9-8");
 	});
 });

@@ -10,13 +10,13 @@ describe("<If />", () => {
 		sandbox.render(
 			<If value={true}>yes</If>
 		);
-		assert.equal(sandbox.container.textContent, "yes");
+		assert.equal(sandbox.textContent, "yes");
 	});
 	it("Should not return children when value is false and there are no <Then /> or <Else /> clauses", () => {
 		sandbox.render(
 			<If value={false}>yes</If>
 		);
-		assert.equal(sandbox.container.textContent, "");
+		assert.equal(sandbox.textContent, "");
 	});
 	it("Should return only <Then /> clause when value is true and there are no more children", () => {
 		sandbox.render(
@@ -24,7 +24,7 @@ describe("<If />", () => {
 				<Then>yes</Then>
 			</If>
 		);
-		assert.equal(sandbox.container.textContent, "yes");
+		assert.equal(sandbox.textContent, "yes");
 	});
 	it("Should return only <Then /> clause when value is true and there are other children", () => {
 		sandbox.render(
@@ -33,7 +33,7 @@ describe("<If />", () => {
 				<div>garbage</div>
 			</If>
 		);
-		assert.equal(sandbox.container.textContent, "yes");
+		assert.equal(sandbox.textContent, "yes");
 	});
 	it("Should return only <Else /> clause when value is false and there are no more children", () => {
 		sandbox.render(
@@ -41,7 +41,7 @@ describe("<If />", () => {
 				<Else>no</Else>
 			</If>
 		);
-		assert.equal(sandbox.container.textContent, "no");
+		assert.equal(sandbox.textContent, "no");
 	});
 	it("Should return only <Else /> clause when value is false and there are other children", () => {
 		sandbox.render(
@@ -50,7 +50,7 @@ describe("<If />", () => {
 				<div>garbage</div>
 			</If>
 		);
-		assert.equal(sandbox.container.textContent, "no");
+		assert.equal(sandbox.textContent, "no");
 	});
 	it("Should return only <Then /> clause when value is true and there are only <Then /> and <Else /> components", () => {
 		sandbox.render(
@@ -59,7 +59,7 @@ describe("<If />", () => {
 				<Else>no</Else>
 			</If>
 		);
-		assert.equal(sandbox.container.textContent, "yes");
+		assert.equal(sandbox.textContent, "yes");
 	});
 	it("Should return only <Else /> clause when value is false and there are only <Then /> and <Else /> components", () => {
 		sandbox.render(
@@ -68,7 +68,7 @@ describe("<If />", () => {
 				<Else>no</Else>
 			</If>
 		);
-		assert.equal(sandbox.container.textContent, "no");
+		assert.equal(sandbox.textContent, "no");
 	});
 	it("Should return <ElseIf /> clause if the value matches it", () => {
 		sandbox.render(
@@ -78,6 +78,6 @@ describe("<If />", () => {
 				<Else>no</Else>
 			</If>
 		);
-		assert.equal(sandbox.container.textContent, "maybe");
+		assert.equal(sandbox.textContent, "maybe");
 	});
 });
