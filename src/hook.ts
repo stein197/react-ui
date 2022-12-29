@@ -141,7 +141,7 @@ export function useCounter(initial: number, min: number = -Infinity, max: number
 			newValue = min + rest;
 		}
 		setValue(newValue);
-	}, []);
+	}, [initial, min, max, overflow, value]);
 	return [value, increment];
 }
 
@@ -256,4 +256,33 @@ export function useOnline(): boolean {
 		}
 	}, []);
 	return online;
+}
+
+/**
+ * Loads image.
+ * @param url URL to the image to load.
+ * @returns Loaded and error status.
+ * @example
+ * ```tsx
+ * function Component() {
+ * 	const [loaded, error] = useImage("https://domain.com");
+ * 	return (
+ * 		<div>Loaded: {loaded.toString()}, Error: {error.toString()}</div>
+ * 	)
+ * }
+ * ```
+ */
+export function useImage(url: string): type.UseImage {
+	const [loaded, setLoaded] = React.useState(false);
+	const [error, setError] = React.useState(false);
+	React.useEffect(() => {
+		const img = new globalThis.Image();
+		img.onload = () => setLoaded(true);
+		img.onerror = () => setError(true);
+		img.src = url;
+		return () => {
+			img.onload = img.onerror = null;
+		}
+	}, [url]);
+	return [loaded, error];
 }
