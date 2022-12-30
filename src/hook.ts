@@ -55,7 +55,6 @@ export function useAsync<T, U = any>(a: Promise<T> | (() => Promise<T>), run: bo
 	React.useEffect(() => {
 		if (runCallback)
 			return;
-		
 		(isPromise ? a : a()).then(value => {
 			setState(PromiseState.Fulfilled);
 			setValue(value);

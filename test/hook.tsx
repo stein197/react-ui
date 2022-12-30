@@ -1,11 +1,50 @@
 import "mocha";
+import PromiseState from "@stein197/util/PromiseState";
+import Sandbox from "./Sandbox";
 import * as assert from "assert";
 import * as React from "react";
 import * as hook from "../src/hook";
-import Sandbox from "./Sandbox";
+import * as util from "./util";
 
-// TODO
-describe("hook.useAsync()", () => {});
+describe("hook.useAsync()", () => {
+	const sandbox = new Sandbox();
+	function TestComponent<T>({promise, run}: {promise: Promise<T> | (() => Promise<T>); run?: boolean}): JSX.Element {
+		// @ts-ignore
+		const [state, value, error, runner] = hook.useAsync(promise, run);
+		return (
+			<div>
+				<p>{JSON.stringify({state, value, error, runner})}</p>
+				<button onClick={runner}>Click</button>
+			</div>
+		);
+	}
+	it("Should instantly run promise when a callback is passed and \"run\" is true", async () => {
+		sandbox.render(<TestComponent promise={() => util.timeout(50, "Resolved!")} run={true} />);
+		await util.timeout(100);
+		assert.deepStrictEqual(JSON.parse(sandbox.select("p")!.textContent!), {state: PromiseState.Fulfilled, value: "Resolved!"});
+	});
+	it("Should run promise only on demand when a callback is passed and \"run\" is false", async () => {
+		await sandbox.renderAsync(<TestComponent promise={() => util.timeout(50, "Resolved!")} run={false} />, util.timeout(100));
+		assert.deepStrictEqual(JSON.parse(sandbox.select("p")!.textContent!), {state: PromiseState.Pending});
+		sandbox.click("button");
+		await util.timeout(100);
+		assert.deepStrictEqual(JSON.parse(sandbox.select("p")!.textContent!), {state: PromiseState.Fulfilled, value: "Resolved!"});
+	});
+	it("Should return pending state, null as the result and error at the initialization", () => {
+		sandbox.render(<TestComponent promise={util.timeout(1000, "Resolved!")} />);
+		assert.deepStrictEqual(JSON.parse(sandbox.select("p")!.textContent!), {state: PromiseState.Pending});
+	});
+	it("Should return fulfilled state, expected result and null as an error when the promise is resolved", async () => {
+		const p = util.timeout(50, "Resolved!", "Rejected!");
+		await sandbox.renderAsync(<TestComponent promise={p} />, p);
+		assert.deepStrictEqual(JSON.parse(sandbox.select("p")!.textContent!), {state: PromiseState.Fulfilled, value: "Resolved!"});
+	});
+	it("Should return rejected state, null as a result and an error when the promise is rejected", async () => {
+		const p = util.timeout(50, "Resolved!", "Rejected!", false);
+		await sandbox.renderAsync(<TestComponent promise={p} />, p);
+		assert.deepStrictEqual(JSON.parse(sandbox.select("p")!.textContent!), {state: PromiseState.Rejected, error: "Rejected!"});
+	});
+});
 
 describe("hook.useToggle()", () => {
 	const sandbox = new Sandbox();
