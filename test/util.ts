@@ -15,3 +15,7 @@ export function unmock<T extends object, K extends keyof T>(context: T, key: K):
 		return;
 	context[key] = orig[key];
 }
+
+export function timeout<T, U = any>(ms: number, resolveValue?: T, rejectValue?: U, resolve: boolean = true): Promise<T> {
+	return new Promise<T>((rs, rj): void => void setTimeout((): void => resolve ? rs(resolveValue!) : rj(rejectValue), ms));
+}
