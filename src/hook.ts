@@ -42,7 +42,8 @@ export function useAsync<T, U = any>(a: Promise<T> | (() => Promise<T>), run: bo
 	const [value, setValue] = React.useState<T>();
 	const [error, setError] = React.useState<U>();
 	const isPromise = a instanceof Promise;
-	const runCallback = isPromise || run ? undefined : React.useCallback((): void => {
+	const needCallback = !isPromise && !run;
+	const runCallback = needCallback ? React.useCallback(() => {
 		a().then(value => {
 			setState(PromiseState.Fulfilled);
 			setValue(value);
@@ -50,11 +51,12 @@ export function useAsync<T, U = any>(a: Promise<T> | (() => Promise<T>), run: bo
 			setState(PromiseState.Rejected);
 			setError(error);
 		});
-	}, [a]);
-	React.useEffect((): void => {
-		if (!isPromise || !run)
+	}, [a]) : undefined;
+	React.useEffect(() => {
+		if (runCallback)
 			return;
-		a.then(value => {
+		
+		(isPromise ? a : a()).then(value => {
 			setState(PromiseState.Fulfilled);
 			setValue(value);
 		}).catch(error => {
@@ -63,7 +65,7 @@ export function useAsync<T, U = any>(a: Promise<T> | (() => Promise<T>), run: bo
 		});
 	}, [a]);
 	const result: type.UseAsync<T, U> = [state, value, error];
-	if (!isPromise && !run)
+	if (runCallback)
 		result.push(runCallback);
 	return result;
 }
