@@ -148,6 +148,26 @@ Animated circle spinner component
 | `clockwise`     | `boolean`                            | Direction in which to spin the circle             |
 | `className`     | `string`                             | Additional CSS classname                          |
 
+## Hooks
+
+### useAsync
+
+### useToggle
+
+### usePrev
+
+### useCounter
+
+### useHover
+
+### useResize
+
+### useFocus
+
+### useOnline
+
+### useImage
+
 > NOTE: More detailed documentation can be found in TSDoc blocks in source code.
 
 ## NPM scripts

@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 - Add support for custom render function for `Dropdown` component
+- Move react hooks to a distinct package
+
+## [1.5.0](../../compare/1.4.0..1.5.0) - 2022-12-30
+### Added
+- Hooks: `useAsync()`, `useToggle()`, `usePrev()`, `useCounter()`, `useHover()`, `useResize()`, `useFocus()`, `useOnline()`, `useImage()`
+- Component: `<ElseIf />`
+
+### Changed
+- `<Case />` component now supports multiple choises by passing an array to it
+
+### Fixed
+- Running tests no longer spawns "not wrapped in act(...)" warning
 
 ## [1.4.0](../../compare/1.3.0..1.4.0) - 2022-12-25
 ### Added
