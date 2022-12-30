@@ -166,18 +166,3 @@ describe("hook.useCounter()", () => {
 		assert.equal(sandbox.select("p")!.textContent, "-5");
 	});
 });
-
-// TODO
-describe("hook.useHover()", () => {});
-
-// TODO
-describe("hook.useResize()", () => {});
-
-// TODO
-describe("hook.useFocus()", () => {});
-
-// TODO
-describe("hook.useOnline()", () => {});
-
-// TODO
-describe("hook.useImage()", () => {});
